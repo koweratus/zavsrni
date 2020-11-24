@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DBRepo implements IRepo {
-    private static final String INSERT_USERS = "{ CALL  INSERT_USERS (?,?,?,?,?)}";
+    private static final String INSERT_USERS = "{ CALL  INSERT_USERS (?,?,?,?)}";
     private static final String GET_ALL_USERS = "{ CALL  GET_ALL_USERS ()}";
     private static final String GET_USERS = "{ CALL  GET_USERS (?)}";
     private static final String GET_HISTORY_FOR_USERS = "{ CALL  GET_HISTORY_FOR_USERS (?)}";
@@ -29,7 +29,6 @@ public class DBRepo implements IRepo {
             statement.setString(2, u.getLastName());
             statement.setString(3, u.getEmail());
             statement.setString(4, u.getPassword());
-            statement.setString(5, u.getPassword());
 
             statement.executeUpdate();
         } catch (Exception e) {

@@ -1,7 +1,11 @@
 package controllers;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.RegexValidator;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -18,6 +23,7 @@ import javafx.stage.StageStyle;
 import model.Users;
 import repo.IRepo;
 import repo.RepoFactory;
+import utils.DataValidation;
 import utils.Preferences;
 
 import java.io.FileInputStream;
@@ -45,6 +51,14 @@ public class RegisterController implements Initializable {
     private JFXButton btnRegister;
     @FXML
     private JFXButton btnCancel;
+    @FXML
+    private Label emailLabel;
+    @FXML
+    private Label passLabel;
+    @FXML
+    private Label fnLabel;
+    @FXML
+    private Label lnLabel;
 
     private FileInputStream fis;
     private TextArea textArea;
@@ -58,7 +72,7 @@ public class RegisterController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       // preference = Preferences.getPreferences();
+        // preference = Preferences.getPreferences();
         Preferences preferences = Preferences.getPreferences();
         if (preferences.getLanguage().equals(croatia)) {
             loadLang("hr");
@@ -99,15 +113,14 @@ public class RegisterController implements Initializable {
             stage.setScene(new Scene(parent));
             stage.show();
             //LibraryAssistantUtil.setStageIcon(stage);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
-    public void handleLoginButtonAction(ActionEvent event){
-        if(event.getSource()== btnCancel) {
+    public void handleLoginButtonAction(ActionEvent event) {
+        if (event.getSource() == btnCancel) {
             try {
                 Parent blah = FXMLLoader.load(getClass().getResource("/fxml/guest.fxml"));
                 Scene scene = new Scene(blah);
@@ -118,30 +131,35 @@ public class RegisterController implements Initializable {
                 e.printStackTrace();
             }
         }
-        if (event.getSource()==btnRegister){
-            register();
+        if (event.getSource() == btnRegister) {
+            register(event);
+
         }
 
     }
 
-    private void register(){
+    private void register(ActionEvent event) {
+
+        System.out.println("Action Button Method Passed");
+        boolean emailB = DataValidation.validateEmaill(txtEmail, emailLabel);
+        boolean pw = DataValidation.validatePassword(txtPassword, passLabel);
+        boolean fn = DataValidation.validateName(txtFirstName, fnLabel);
+        boolean ln = DataValidation.validateName(txtLastName, lnLabel);
         String email = txtEmail.getText().toString();
         String pass = txtPassword.getText().toString();
-        String firstname=txtFirstName.getText().toString();
-        String lastname=txtLastName.getText().toString();
+        String firstname = txtFirstName.getText().toString();
+        String lastname = txtLastName.getText().toString();
         IRepo repo = RepoFactory.getRepo();
-        if (repo.checkEmail(email) || !email.isEmpty())
-        {
-            System.out.println("ahaha");
-            txtEmail.getStyleClass().add("wrong-credentials");
-        }else{
 
+        if (!(repo.checkEmail(email))) {
             Users u = new Users(firstname, lastname,
                     email, pass);
             repo.insertUsers(u);
+            switchLogin(event);
         }
 
     }
+
 
     private void loadLang(String lang) {
         locale = new Locale(lang);
@@ -154,6 +172,17 @@ public class RegisterController implements Initializable {
         txtPassword.setPromptText(bundle.getString("lblPassword"));
 
 
+    }
+    void switchLogin(ActionEvent event){
+        try {
+            Parent blah = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+            Scene scene = new Scene(blah);
+            Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            appStage.setScene(scene);
+            appStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

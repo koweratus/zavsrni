@@ -33,11 +33,7 @@ import utils.Preferences;
 import utils.Utils;
 
 
-/**
- * FXML Controller class
- *
- * @author Anay
- */
+
 public class LessonResultController implements Initializable {
 
     @FXML
