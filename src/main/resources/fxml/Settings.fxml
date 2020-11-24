@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="300.0" stylesheets="@../styles/dark-theme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SettingsController">
+   <children>
+      <Label fx:id="lblSettings" minHeight="-Infinity" minWidth="-Infinity" opacity="0.96" prefHeight="50.0" prefWidth="226.0" text="SETTINGS" textAlignment="JUSTIFY" textFill="#ebe1e1">
+         <font>
+            <Font name="System Bold" size="37.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="70.0" />
+         </VBox.margin>
+         <padding>
+            <Insets right="50.0" />
+         </padding>
+      </Label>
+      <Label fx:id="lbEmail" />
+      <GridPane prefHeight="461.0" prefWidth="300.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints percentHeight="10.0" valignment="CENTER" vgrow="NEVER" />
+            <RowConstraints percentHeight="10.0" valignment="CENTER" vgrow="NEVER" />
+            <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
+            <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
+            <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
+            <RowConstraints minHeight="10.0" percentHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
+         </rowConstraints>
+         <children>
+            <Label fx:id="lblVid" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="127.0" text="Video Resolution" textFill="#fffefe">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="5.0" />
+               </GridPane.margin>
+            </Label>
+            <ChoiceBox fx:id="cbVideo" prefHeight="16.0" prefWidth="138.0" GridPane.columnIndex="1" />
+            <ChoiceBox fx:id="cbProgramLang" prefHeight="16.0" prefWidth="143.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="lblPlang" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="170.0" text="Programming Language" textFill="#fffefe" GridPane.rowIndex="1">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblLanguage" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="170.0" text="Language" textFill="#fffefe" GridPane.rowIndex="2">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblKbLayout" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="170.0" text="Keyboard Layout" textFill="#fffefe" GridPane.rowIndex="3">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="cbLanguage" onAction="#cbSelection" prefHeight="16.0" prefWidth="143.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ComboBox fx:id="cbKeyboardLayout" prefHeight="16.0" prefWidth="143.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button fx:id="btnBack" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleBack" prefHeight="25.0" prefWidth="94.0" stylesheets="@../styles/style.css" text="Back" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets bottom="-25.0" left="30.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="btnSave" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSave" prefHeight="25.0" prefWidth="94.0" stylesheets="@../styles/style.css" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets bottom="-25.0" left="15.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets top="70.0" />
+         </VBox.margin>
+      </GridPane>
+   </children>
+</VBox>
