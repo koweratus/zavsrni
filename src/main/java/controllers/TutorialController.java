@@ -18,9 +18,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -36,6 +37,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import utils.Preferences;
 
 
 public class TutorialController implements Initializable {
@@ -64,6 +66,8 @@ public class TutorialController implements Initializable {
 
     @FXML
     private JFXButton HomeButton;
+    @FXML
+    private Label lblElapsed;
 
     @FXML
     private JFXButton goButton;
@@ -75,14 +79,82 @@ public class TutorialController implements Initializable {
     @FXML
     private Label txtEmail;
     @FXML
+    private Label lblNaslov;
+    @FXML
     private ComboBox cbDiff;
 
-    private ObservableList<String> Beginner = FXCollections
-            .observableArrayList("Beginner 1", "Beginner 2");
-    private ObservableList<String> Advanced = FXCollections
-            .observableArrayList("Advanced 1", "Advanced 2");
-    private ObservableList<String> Difficulty = FXCollections
-            .observableArrayList("Beginner", "Advanced");
+    private ResourceBundle bundle;
+    private Locale locale;
+    private final String croatia = "Croatian";
+    private final String englishUK = "English (UK)";
+    private final String englishUS = "English (US)";
+    private final String russian = "Russian";
+    private final String serbia = "Serbian";
+    private final String cSharp = "C#";
+    private final String cpp = "C++";
+    private final String java = "Java";
+    private final String js = "JavaScript";
+
+    private final ObservableList<String> Beginner = FXCollections
+            .observableArrayList("Beginner 1", "Beginner 2", "Beginner 3", "Beginner 4", "Beginner 5");
+    private final ObservableList<String> BeginnerHR = FXCollections
+            .observableArrayList("BeginnerHR 1", "BeginnerHR 2", "BeginnerHR 3", "BeginnerHR 4", "BeginnerHR 5");
+    private final ObservableList<String> BeginnerSR = FXCollections
+            .observableArrayList("BeginnerSR 1", "BeginnerSR 2", "BeginnerSR 3", "BeginnerSR 4", "BeginnerSR 5");
+    private final ObservableList<String> BeginnerRU = FXCollections
+            .observableArrayList("BeginnerRU 1", "BeginnerRU 2", "BeginnerRU 3", "BeginnerRU 4", "BeginnerRU 5");
+    private final ObservableList<String> BeginnerUS = FXCollections
+            .observableArrayList("BeginnerUS 1", "BeginnerUS 2", "BeginnerUS 3", "BeginnerUS 4", "BeginnerUS 5");
+    private final ObservableList<String> BeginnerDvorak = FXCollections
+            .observableArrayList("BeginnerDvorak 1", "BeginnerDvorak 2", "BeginnerDvorak 3", "BeginnerDvorak 4", "BeginnerDvorak 5");
+    private final ObservableList<String> BeginnerColemak = FXCollections
+            .observableArrayList("BeginnerColemak 1", "BeginnerColemak 2", "BeginnerColemak 3", "BeginnerColemak 4", "BeginnerColemak 5");
+    private final ObservableList<String> Advanced = FXCollections
+            .observableArrayList("Advanced 1", "Advanced 2", "Advanced 3", "Advanced 4", "Advanced 5");
+    private final ObservableList<String> AdvancedHR = FXCollections
+            .observableArrayList("AdvancedHR 1", "AdvancedHR 2", "AdvancedHR 3", "AdvancedHR 4", "AdvancedHR 5");
+    private final ObservableList<String> AdvancedSR = FXCollections
+            .observableArrayList("AdvancedSR 1", "AdvancedSR 2", "AdvancedSR 3", "AdvancedSR 4", "AdvancedSR 5");
+    private final ObservableList<String> AdvancedUS = FXCollections
+            .observableArrayList("AdvancedUS 1", "AdvancedUS 2", "AdvancedUS 3", "AdvancedUS 4", "AdvancedUS 5");
+    private final ObservableList<String> AdvancedDvorak = FXCollections
+            .observableArrayList("AdvancedDvorak 1", "AdvancedDvorak 2", "AdvancedDvorak 3", "AdvancedDvorak 4", "AdvancedDvorak 5");
+    private final ObservableList<String> AdvancedColemak = FXCollections
+            .observableArrayList("AdvancedColemak 1", "AdvancedColemak 2", "AdvancedColemak 3", "AdvancedColemak 4", "AdvancedColemak 5");
+    private final ObservableList<String> AdvancedRU = FXCollections
+            .observableArrayList("AdvancedRU 1", "AdvancedRU 2", "AdvancedRU 3", "AdvancedRU 4", "AdvancedRU 5");
+    private final ObservableList<String> Intermediate = FXCollections
+            .observableArrayList("Intermediate 1", "Intermediate 2", "Intermediate 3", "Intermediate 4",
+                    "Intermediate 5");
+    private final ObservableList<String> IntermediateHR = FXCollections
+            .observableArrayList("IntermediateHR 1", "IntermediateHR 2", "IntermediateHR 3", "IntermediateHR 4",
+                    "IntermediateHR 5");
+    private final ObservableList<String> IntermediateSR = FXCollections
+            .observableArrayList("IntermediateSR 1", "IntermediateSR 2", "IntermediateSR 3", "IntermediateSR 4",
+                    "IntermediateSR 5");
+    private final ObservableList<String> IntermediateRU = FXCollections
+            .observableArrayList("IntermediateRU 1", "IntermediateRU 2", "IntermediateRU 3", "IntermediateRU 4",
+                    "IntermediateRU 5");
+    private final ObservableList<String> IntermediateUS = FXCollections
+            .observableArrayList("IntermediateUS 1", "IntermediateUS 2", "IntermediateUS 3", "IntermediateUS 4",
+                    "IntermediateUS 5");
+    private final ObservableList<String> IntermediateDvorak = FXCollections
+            .observableArrayList("IntermediateDvorak 1", "IntermediateDvorak 2", "IntermediateDvorak 3", "IntermediateDvorak 4",
+                    "IntermediateDvorak 5");
+    private final ObservableList<String> IntermediateColemak = FXCollections
+            .observableArrayList("IntermediateColemak 1", "IntermediateColemak 2", "IntermediateColemak 3", "IntermediateColemak 4",
+                    "IntermediateColemak 5");
+    private final ObservableList<String> ProgrammerCS = FXCollections
+            .observableArrayList("C# 1", "C# 2");
+    private final ObservableList<String> ProgrammerCPP = FXCollections
+            .observableArrayList("C++ 1", "C++ 2");
+    private final ObservableList<String> ProgrammerJava = FXCollections
+            .observableArrayList("Java 1", "Java 2");
+    private final ObservableList<String> ProgrammerJS = FXCollections
+            .observableArrayList("JavaScript 1", "JavaScript 2");
+    private final ObservableList<String> Difficulty = FXCollections
+            .observableArrayList("Beginner", "Intermediate", "Advanced", "Programmer");
+
 
     //progress tracking variables
 
@@ -98,12 +170,13 @@ public class TutorialController implements Initializable {
     String timeToComplete;
 
     private char typedKey;
+    private String[] s;
 
     int indexOfLine = 0;
 
     String line;
 
-    int wordCount = -1;
+    int wordCount = 0;
 
 
     //Timer variables
@@ -149,12 +222,14 @@ public class TutorialController implements Initializable {
 
     }
 
-
+    private int negativni = 0;
     @FXML
     void onPressGo(ActionEvent event) {
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(new File("F:\\Downloads\\typing-tutor-JavaFX-master\\typing-tutor-JavaFX-master\\JavaProject\\files\\" + lessonChoiceBox.getSelectionModel().getSelectedItem() + ".txt")));
+            BufferedReader reader =
+                    new BufferedReader(new FileReader("src/main/resources/files/" + lessonChoiceBox.getSelectionModel().getSelectedItem().toString() + ".txt"));
+
             errorCountWithBackspace = 0;
             errorCountWithoutBackspace = 0;
             totalChar = 0;
@@ -165,8 +240,10 @@ public class TutorialController implements Initializable {
             textInputArea.setText(""); //clears the inputTextArea.
             textInputArea.requestFocus();//brings focus on the textInputArea.
 
-
             textInputArea.setOnKeyTyped(new EventHandler<KeyEvent>() {
+                private int pozitvni=0;
+                private int negativni=0;
+
                 @Override
                 public void handle(KeyEvent event) {
 
@@ -177,20 +254,21 @@ public class TutorialController implements Initializable {
 
                     textInputArea.setId("normal");
                     expectedKey = line.charAt(indexOfLine);
-                    String s = line.substring(indexOfLine);
 
                     typedKey = event.getCharacter().charAt(0);
 
-                    System.out.println("typed : " + textInputArea.getText() + " index:" + indexOfLine + " words count:" + wordCount + " total char:" + totalChar + " typedKey: " + typedKey + " expected word:" + s);
+                    System.out.println("expectedKey : " + expectedKey + " index:" + indexOfLine + " words " +
+                            "count:" + wordCount + " total char:" + totalChar + " typedKey: " + typedKey + " expected" +
+                            " word:" + Arrays.toString(s));
                     String s1 = displayArea.getText();
                     String s2 = textInputArea.getText();
-                    Pattern p = Pattern.compile("[a-zA-Z]*[^\\s]");
+                    Pattern p = Pattern.compile("[a-zA-Z]*[^\\s+]");
                     //(\w+)[^\s]+
                     //[a-zA-Z]+
                     Matcher m1 = p.matcher(s1);
                     Matcher m2 = p.matcher(s2);
-                    int pozitvni = 0;
-                    int negativni = 0;
+
+
              /*       String str = displayArea.getText();
                     String rts = textInputArea.getText();
                     System.out.println("Words from string \"" + s1 + "\" : ");
@@ -198,27 +276,28 @@ public class TutorialController implements Initializable {
 
                         System.out.println(rts.charAt(i));
                     }*/
+                    if(typedKey!=expectedKey ){
+                        negativni++;
+                        System.out.println("negativni:" + negativni/5);
+                        lblNeg.setText(String.valueOf(negativni/5));
+                    }else {
 
-                        wordCount=s1.split("\\s+").length;
-                        System.out.println("RICI:"+wordCount);
-                    System.out.println("Words from string \"" + s1 + "\" : ");
-                    while (m1.find() && m2.find()) {
-                     //   System.out.println("Zadane rici: " + m1.group() + " utipkane rici: " + m2.group());
-                        displayArea.setStyle(m1.start(), m1.end(), "-fx-font-weight: bold;");
-                        if (m1.group().equals(m2.group())) {
-                            pozitvni++;
-                            System.out.println("pozitivni:" + pozitvni);
-                            lblPoz.setText(String.valueOf(pozitvni));
-                        } else if (!(m1.group().equals(m2.group())) && typedKey == ' ') {
-                            negativni++;
-                            System.out.println("negativni:" + negativni);
-                            lblNeg.setText(String.valueOf(negativni));
-
-                        }
-
+                        pozitvni++;
+                        System.out.println("pozitivni:" + pozitvni/5);
+                        lblPoz.setText(String.valueOf(pozitvni/5));
                     }
 
+                    while (m1.find() && m2.find()) {
+                           System.out.println("Zadane rici: " + m1.group() + " utipkane rici: " + m2.group());
+                        displayArea.setStyle(m1.start(), m1.end(), "-fx-font-weight: bold;");
+                        if (m1.group().equals(m2.group())) {
 
+
+                        } else if (!(m1.group().equals(m2.group())) ) {
+
+
+                        }
+                    }
 
                     //DEBUG STATEMENT System.out.println("expected : " + expectedKey);
 
@@ -230,10 +309,10 @@ public class TutorialController implements Initializable {
 
                     //if the last letter of the shown line is typed, read the next line of the lesson
                     if (indexOfLine == line.length() - 1) {
-                 //       System.out.println("typed : " + textInputArea.getText() + " index:" + indexOfLine);
+                        //       System.out.println("typed : " + textInputArea.getText() + " index:" + indexOfLine);
 
                         //DEBUG STATEMENT   System.out.println("typed : " + typedKey);
-                     //   System.out.println("typed : " + textInputArea.getText());
+                        //   System.out.println("typed : " + textInputArea.getText());
                         //check the last character
                         if (typedKey != expectedKey) {
 
@@ -250,8 +329,12 @@ public class TutorialController implements Initializable {
                         try {
                             //if file is not completely read
                             if ((line = reader.readLine()) != null) {
+                                displayArea.deleteText(0, displayArea.getLength());//clears the display area.
+                                displayArea.clearStyle(0, displayArea.getLength());
                                 displayArea.appendText(line);
+                                wordCount += line.split("\\s+").length;
                                 totalChar += line.length();
+
                                 //wordCount += countSpaces(line);
                                 textInputArea.setText("");
                             }
@@ -298,6 +381,8 @@ public class TutorialController implements Initializable {
 
             //First line is displayed.
             if ((line = reader.readLine()) != null) {
+                wordCount += line.split("\\s+").length;
+                s = line.split("\\s+");
                 displayArea.appendText(line);
                 totalChar += line.length();
                 // wordCount += countSpaces(line);
@@ -305,8 +390,6 @@ public class TutorialController implements Initializable {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
     }
 
@@ -340,13 +423,17 @@ public class TutorialController implements Initializable {
         txtEmail.setText(user);
         txtEmail.setVisible(false);
     }
-    void getPositiveWords(String pozitivni){
+
+    void getPositiveWords(String pozitivni) {
         lblPoz.setText(pozitivni);
         lblPoz.setVisible(false);
-    }   void getNegativeWords(String pozitivni){
+    }
+
+    void getNegativeWords(String pozitivni) {
         lblNeg.setText(pozitivni);
         lblNeg.setVisible(false);
     }
+
     @FXML
     void switchSceneToResultPage(ActionEvent event) {
 
@@ -361,7 +448,7 @@ public class TutorialController implements Initializable {
             String pozitvni = controller.getPositiveWords(lblPoz.getText());
             String negativni = controller.getNegativeWords(lblNeg.getText());
             controller.initializeMyData(totalChar, errorCountWithBackspace, errorCountWithoutBackspace,
-                    timeToComplete, wordCount, currentLessonChoice, email, n, pozitvni,negativni);
+                    timeToComplete, wordCount, currentLessonChoice, email, n, pozitvni, negativni);
             Stage theStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             theStage.setScene(scene);
             theStage.show();
@@ -373,10 +460,9 @@ public class TutorialController implements Initializable {
 
     //loads the same or next lesson.
     void initializeLessonChoiceAndBegin(int choice) {
-        if (choice <= 16 && 0 <= choice) {
+        if (choice <= 6 && 0 <= choice) {
             lessonChoiceBox.getSelectionModel().select(choice);
-        } else if (choice == 17)
-            lessonChoiceBox.getSelectionModel().select(16);
+        }
         goButton.fire();
     }
 
@@ -387,30 +473,125 @@ public class TutorialController implements Initializable {
             String lesson = lessonChoiceBox.getSelectionModel().getSelectedItem();
             lblN.setText(lesson);
             lblN.setVisible(false);
-            //System.out.println(lesson);
+            System.out.println("sdasda "+lesson);
 
         });
 
 
     }
-    @FXML
-    void lessonChoice() {
+
+    void lessonChoice(String lang, String plang) {
+        Preferences preferences = Preferences.getPreferences();
 
         cbDiff.setOnAction(e -> {
             String lesson = (String) cbDiff.getSelectionModel().getSelectedItem();
             System.out.println(lesson);
-            if (lesson.equals("Beginner") ) {
-               lessonChoiceBox.setValue("Beginner 1");
-                lessonChoiceBox.setItems(Beginner);
+            if (lesson.equals("Beginner")) {
+                if (lang.equals(croatia)) {
+                    lessonChoiceBox.setValue("BeginnerHR 1");
+                    lessonChoiceBox.setItems(BeginnerHR);
+                } else if (lang.equals(englishUK)) {
+                    lessonChoiceBox.setValue("Beginner 1");
+                    lessonChoiceBox.setItems(Beginner);
+                } else if (lang.equals(serbia)) {
+                    lessonChoiceBox.setValue("BeginnerSR 1");
+                    lessonChoiceBox.setItems(BeginnerSR);
+                } else if (lang.equals(russian)) {
+                    lessonChoiceBox.setValue("BeginnerRU 1");
+                    lessonChoiceBox.setItems(BeginnerRU);
+                } else if (lang.equals(englishUS)) {
+                    if (preferences.getKeyboardLayout().equals("Colemak")) {
+                        lessonChoiceBox.setValue("BeginnerColemak 1");
+                        lessonChoiceBox.setItems(BeginnerColemak);
+                    } else if (preferences.getKeyboardLayout().equals("Dvorak")) {
+                        lessonChoiceBox.setValue("BeginnerDvorak 1");
+                        lessonChoiceBox.setItems(BeginnerDvorak);
 
+                    } else {
+                        lessonChoiceBox.setValue("BeginnerUS 1");
+                        lessonChoiceBox.setItems(BeginnerUS);
+                    }
+                }
             } else if (lesson.equals("Advanced")) {
-                lessonChoiceBox.setValue("Advanced 1");
-                lessonChoiceBox.setItems(Advanced);
+                if (lang.equals(croatia)) {
+                    lessonChoiceBox.setValue("AdvancedHR 1");
+                    lessonChoiceBox.setItems(AdvancedHR);
+                } else if (lang.equals(englishUK)) {
+                    lessonChoiceBox.setValue("Advanced 1");
+                    lessonChoiceBox.setItems(Advanced);
+                } else if (lang.equals(serbia)) {
+                    lessonChoiceBox.setValue("AdvancedSR 1");
+                    lessonChoiceBox.setItems(AdvancedSR);
+                } else if (lang.equals(russian)) {
+                    lessonChoiceBox.setValue("AdvancedRU 1");
+                    lessonChoiceBox.setItems(AdvancedRU);
+                } else if (lang.equals(englishUS)) {
+                    if (preferences.getKeyboardLayout().equals("Colemak")) {
+                        lessonChoiceBox.setValue("AdvancedColemak 1");
+                        lessonChoiceBox.setItems(AdvancedColemak);
+                    } else if (preferences.getKeyboardLayout().equals("Dvorak")) {
+                        lessonChoiceBox.setValue("AdvancedDvorak 1");
+                        lessonChoiceBox.setItems(AdvancedDvorak);
+
+                    } else {
+                        lessonChoiceBox.setValue("AdvancedUS 1");
+                        lessonChoiceBox.setItems(AdvancedUS);
+                    }
+
+                }
+            } else if (lesson.equals("Intermediate")) {
+                if (lang.equals(croatia)) {
+                    lessonChoiceBox.setValue("IntermediateHR 1");
+                    lessonChoiceBox.setItems(IntermediateHR);
+                } else if (lang.equals(englishUK)) {
+                    lessonChoiceBox.setValue("Intermediate 1");
+                    lessonChoiceBox.setItems(Intermediate);
+                } else if (lang.equals(serbia)) {
+                    lessonChoiceBox.setValue("IntermediateSR 1");
+                    lessonChoiceBox.setItems(IntermediateSR);
+                } else if (lang.equals(russian)) {
+                    lessonChoiceBox.setValue("IntermediateRU 1");
+                    lessonChoiceBox.setItems(IntermediateRU);
+                } else if (lang.equals(englishUS)) {
+                    if (preferences.getKeyboardLayout().equals("Colemak")) {
+                        lessonChoiceBox.setValue("IntermediateColemak 1");
+                        lessonChoiceBox.setItems(IntermediateColemak);
+                    } else if (preferences.getKeyboardLayout().equals("Dvorak")) {
+                        lessonChoiceBox.setValue("IntermediateDvorak 1");
+                        lessonChoiceBox.setItems(IntermediateDvorak);
+
+                    } else {
+                        lessonChoiceBox.setValue("IntermediateUS 1");
+                        lessonChoiceBox.setItems(IntermediateUS);
+                    }
+                }
+            } else if (lesson.equals("Programmer")) {
+                if (plang.equals(java)) {
+                    lessonChoiceBox.setValue("Java 1");
+                    lessonChoiceBox.setItems(ProgrammerJava);
+
+                }
+                if (plang.equals(cSharp)) {
+                    lessonChoiceBox.setValue("C# 1");
+                    lessonChoiceBox.setItems(ProgrammerCS);
+
+                }
+                if (plang.equals(cpp)) {
+                    lessonChoiceBox.setValue("C++ 1");
+                    lessonChoiceBox.setItems(ProgrammerCPP);
+
+                }
+                if (plang.equals(js)) {
+                    lessonChoiceBox.setValue("JavaScript 1");
+                    lessonChoiceBox.setItems(ProgrammerJS);
+
+                }
             }
             goButton.setDisable(false);
         });
     }
-    void setTimer(){
+
+    void setTimer() {
         ETLabel.setText("00:00");
 
         timeline = new Timeline(new KeyFrame(Duration.millis(1), new EventHandler<ActionEvent>() {
@@ -442,20 +623,62 @@ public class TutorialController implements Initializable {
 
     //Runs when the scene is loaded.
     public void initialize(URL url, ResourceBundle rb) {
-            goButton.setDisable(true);
+        Preferences preferences = Preferences.getPreferences();
+        if (preferences.getLanguage().equals(croatia)) {
+            loadLang("hr");
+            lessonChoice(croatia, preferences.getProgrammingLanguage());
+        }
+        if (preferences.getLanguage().equals(englishUK)) {
+            loadLang("en");
+            lessonChoice(englishUK, preferences.getProgrammingLanguage());
+        }
+        if (preferences.getLanguage().equals(russian)) {
+            loadLang("ru");
+            lessonChoice(russian, preferences.getProgrammingLanguage());
+        }
+        if (preferences.getLanguage().equals(serbia)) {
+            loadLang("sr");
+            lessonChoice(serbia, preferences.getProgrammingLanguage());
+        }
+        if (preferences.getLanguage().equals(englishUS)) {
+            loadLang("en");
+            lessonChoice(englishUS, preferences.getProgrammingLanguage());
+        }
+        if (preferences.getProgrammingLanguage().equals(cpp)) {
+            lessonChoice(preferences.getLanguage(), preferences.getProgrammingLanguage());
+        }
+        if (preferences.getProgrammingLanguage().equals(cSharp)) {
+            lessonChoice(preferences.getLanguage(), preferences.getProgrammingLanguage());
+        }
+        if (preferences.getProgrammingLanguage().equals(java)) {
+            lessonChoice(preferences.getLanguage(), preferences.getProgrammingLanguage());
+        }
+        if (preferences.getProgrammingLanguage().equals(js)) {
+            lessonChoice(preferences.getLanguage(), preferences.getProgrammingLanguage());
+        }
+        goButton.setDisable(true);
         //Initializes the choice box with lesson options.
 
         cbDiff.setItems(Difficulty);
         lessonChoiceBox.getSelectionModel().select("Choose lesson");
         cbDiff.getSelectionModel().select("Choose difficulty");
-        lessonChoice();
         getLessonName();
         //Initially Elapsed time is set to 0.
-       setTimer();
+        setTimer();
         lblN.setVisible(false);
         lblPoz.setVisible(false);
         lblNeg.setVisible(false);
 
     }//Initialize method ends.
 
+    private void loadLang(String lang) {
+        locale = new Locale(lang);
+        bundle = ResourceBundle.getBundle("/lang/lang", locale);
+        goButton.setText(bundle.getString("btnGo"));
+        HomeButton.setText(bundle.getString("btnHome"));
+        lblElapsed.setText(bundle.getString("lblTypingTime"));
+        lblNaslov.setText(bundle.getString("lblNaslov"));
+
+
+    }
 }//Controller class ends.

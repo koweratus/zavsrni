@@ -1,0 +1,6 @@
+public static <E> Collection<E> filter(Collection<E> unfiltered, Predicate<? super E> predicate) 
+{if (unfiltered instanceof FilteredCollection) {    
+return ((FilteredCollection<E>) unfiltered).createCombined(predicate);}   
+return new FilteredCollection<E>(checkNotNull(unfiltered), checkNotNull(predicate));}
+static boolean safeContains(Collection<?> collection, Object object) {
+try {return collection.contains(object);

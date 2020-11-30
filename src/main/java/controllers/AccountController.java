@@ -1,5 +1,6 @@
 package controllers;
 
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,7 +36,7 @@ public class AccountController implements Initializable {
     private JFXTextField txtEmail;
 
     @FXML
-    private JFXTextField txtPassword;
+    private JFXPasswordField txtPassword;
     @FXML
     private Label lbAccount;
     private String password;
@@ -143,7 +144,7 @@ public class AccountController implements Initializable {
         lblName.setText(bundle.getString("lblName"));
         lblSurname.setText(bundle.getString("lblSurname"));
         lblPassword.setText(bundle.getString("lblPassword"));
-        btnSave.setText(bundle.getString("btnSave"));
+//        btnSave.setText(bundle.getString("btnSave"));
         btnBack.setText(bundle.getString("btnBack"));
 
 

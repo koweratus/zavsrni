@@ -6,11 +6,15 @@ import javax.sql.DataSource;
 
 public class DataSourceSingleton {
 
-  //  private static final String SERVER_NAME="DESKTOP-MFUAQE3\\SQLEXPRESS";
-    private static final String SERVER_NAME="DESKTOP-9PJTSVI\\SQLEXPRESS";
-    private static final String DATABSE_NAME="ZavrsniRad";
+    private static final String SERVER_NAME="den1.mssql8.gear.host";
+    //private static final String SERVER_NAME="DESKTOP-MFUAQE3\\SQLEXPRESS";
+  //  private static final String SERVER_NAME="DESKTOP-9PJTSVI\\SQLEXPRESS";
+/*    private static final String DATABSE_NAME="ZavrsniRad";
     private static final String USER="sa";
-    private static final String PASSWORD="SQL";
+    private static final String PASSWORD="SQL";*/
+    private static final String DATABSE_NAME = "zavrsnirad";
+    private static final String USER = "zavrsnirad";
+    private static final String PASSWORD = "Ul1U6x97M_W_";
 
     private static DataSource createInstance() {
         SQLServerDataSource dataSource= new SQLServerDataSource();

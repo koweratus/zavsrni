@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import com.jfoenix.controls.JFXPasswordField?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="300.0" stylesheets="@../styles/dark-theme.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AccountController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="576.0" prefWidth="300.0" style="-fx-background-color: #2A2E37;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -66,14 +67,14 @@
                      </font>
                   </Label>
                   <JFXTextField fx:id="txtName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1" />
-                  <JFXTextField fx:id="txtPassword" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <JFXPasswordField fx:id="txtPassword" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <JFXTextField fx:id="txtEmail" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <JFXTextField fx:id="txtSurname" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Button fx:id="btnSave" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSave" prefHeight="25.0" prefWidth="94.0" stylesheets="@../styles/style.css" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <!--          <Button fx:id="btnSave" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSave" prefHeight="25.0" prefWidth="94.0" stylesheets="@../styles/style.css" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets left="25.0" />
                      </GridPane.margin>
-                  </Button>
+                  </Button>-->
                   <Button fx:id="btnBack" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleBack" prefHeight="25.0" prefWidth="94.0" stylesheets="@../styles/style.css" text="Back" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets left="25.0" />

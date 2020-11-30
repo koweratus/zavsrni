@@ -67,9 +67,10 @@ public class RegisterController implements Initializable {
 
     private ResourceBundle bundle;
     private Locale locale;
-    private String croatia = "Croatian";
-    private String englishUK = "English (UK)";
-
+    private final String croatia = "Croatian";
+    private final String englishUK = "English (UK)";
+    private final String serbian = "Serbian";
+    private final String russian = "Russian";
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // preference = Preferences.getPreferences();
@@ -79,6 +80,10 @@ public class RegisterController implements Initializable {
         }
         if (preferences.getLanguage().equals(englishUK)) {
             loadLang("en");
+        }    if (preferences.getLanguage().equals(russian)) {
+            loadLang("ru");
+        }    if (preferences.getLanguage().equals(serbian)) {
+            loadLang("sr");
         }
     }
 
@@ -145,13 +150,13 @@ public class RegisterController implements Initializable {
         boolean pw = DataValidation.validatePassword(txtPassword, passLabel);
         boolean fn = DataValidation.validateName(txtFirstName, fnLabel);
         boolean ln = DataValidation.validateName(txtLastName, lnLabel);
-        String email = txtEmail.getText().toString();
-        String pass = txtPassword.getText().toString();
-        String firstname = txtFirstName.getText().toString();
-        String lastname = txtLastName.getText().toString();
+        String email = txtEmail.getText();
+        String pass = txtPassword.getText();
+        String firstname = txtFirstName.getText();
+        String lastname = txtLastName.getText();
         IRepo repo = RepoFactory.getRepo();
 
-        if (!(repo.checkEmail(email))) {
+        if (!(repo.checkEmail(email)) && !email.isEmpty()) {
             Users u = new Users(firstname, lastname,
                     email, pass);
             repo.insertUsers(u);

@@ -52,23 +52,23 @@ public class SettingsController {
     private Label lblSettings;
     private ResourceBundle bundle;
     private Locale locale;
-    private String croatia = "Croatian";
-    private String englishUK = "English (UK)";
-    private String englishUS = "English (US)";
-    private String serbian = "Serbian";
-    private String russian = "Russian";
+    private final String croatia = "Croatian";
+    private final String englishUK = "English (UK)";
+    private final String englishUS = "English (US)";
+    private final String serbian = "Serbian";
+    private final String russian = "Russian";
 
-    private ObservableList<String> VideoResouliton = FXCollections
+    private final ObservableList<String> VideoResouliton = FXCollections
             .observableArrayList("Fullscreen", "Windowed");
-    private ObservableList<String> ProgrammingLanguage = FXCollections
+    private final ObservableList<String> ProgrammingLanguage = FXCollections
             .observableArrayList("C#", "C++", "Java", "JavaScript");
-    private ObservableList<String> Language = FXCollections
+    private final ObservableList<String> Language = FXCollections
             .observableArrayList(croatia, russian, serbian, englishUK, englishUS);
-    private ObservableList<String> KeyboardLayout = FXCollections
-            .observableArrayList("QWERTY", "Coleman", "Dvorak");
-    private ObservableList<String> KeyboardLayoutNormal = FXCollections
+    private final ObservableList<String> KeyboardLayout = FXCollections
+            .observableArrayList("QWERTY", "Colemak", "Dvorak");
+    private final ObservableList<String> KeyboardLayoutNormal = FXCollections
             .observableArrayList("QWERTZ");
-    private ObservableList<String> KeyboardLayoutRus = FXCollections
+    private final ObservableList<String> KeyboardLayoutRus = FXCollections
             .observableArrayList("QWERTY");
 
 
@@ -78,7 +78,6 @@ public class SettingsController {
         cbVideo.setItems(VideoResouliton);
         cbProgramLang.setItems(ProgrammingLanguage);
         cbLanguage.setItems(Language);
-
         initDefaultValues();
         language();
     }
@@ -121,8 +120,14 @@ public class SettingsController {
         if (cbLanguage.getValue().toString().equals("Croatian")) {
             loadLang("hr");
         }
-        if (cbLanguage.getValue().toString().equals("English (UK)")) {
+        else if (cbLanguage.getValue().toString().equals("English (UK)")) {
             loadLang("en");
+        }
+        else if (cbLanguage.getValue().toString().equals("Russian")){
+            loadLang("ru");
+        }
+        else if (cbLanguage.getValue().toString().equals("Serbian")){
+            loadLang("sr");
         }
     }
 
@@ -175,7 +180,7 @@ public class SettingsController {
             try {
                 FXMLLoader loader = new FXMLLoader((getClass().getResource("/fxml/sample.fxml")));
                 Pane blah = loader.load();
-                Controller controller = (Controller) loader.getController();
+                Controller controller = loader.getController();
                 controller.GetUser(lbEmail.getText());
                 Scene scene = new Scene(blah);
                 Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -47,7 +47,8 @@ public class Controller implements Initializable {
     private Locale locale;
     private final String croatia = "Croatian";
     private final String englishUK = "English (UK)";
-
+    private final String serbian = "Serbian";
+    private final String russian = "Russian";
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Preferences preferences = Preferences.getPreferences();
@@ -56,6 +57,10 @@ public class Controller implements Initializable {
         }
         if (preferences.getLanguage().equals(englishUK)){
             loadLang("en");
+        }      if (preferences.getLanguage().equals(serbian)){
+            loadLang("sr");
+        }      if (preferences.getLanguage().equals(russian)){
+            loadLang("ru");
         }
     }
 
@@ -67,7 +72,7 @@ public class Controller implements Initializable {
     public void handleClicks(ActionEvent actionEvent) {
         Preferences preferences = Preferences.getPreferences();
 
-        if (actionEvent.getSource() == btnStart && preferences.getLanguage().equals(englishUK)) {
+        if (actionEvent.getSource() == btnStart ) {
 
             if (preferences.getVideoResolution().equals("Fullscreen")) {
                 try {
@@ -102,7 +107,19 @@ public class Controller implements Initializable {
 
         if (actionEvent.getSource() == btnTutorial) {
 
-
+            FXMLLoader loader= new FXMLLoader((getClass().getResource("/fxml/Images.fxml")));
+            Pane blah = null;
+            try {
+                blah = loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ImagesController controller = (ImagesController) loader.getController();
+            Scene scene = new Scene(blah);
+            Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            appStage.setScene(scene);
+            appStage.setFullScreen(false);
+            appStage.show();
         }
         if (actionEvent.getSource() == btnAccount) {
 

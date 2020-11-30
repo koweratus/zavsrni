@@ -27,15 +27,14 @@
                             <children>
                                 <ImageView fitHeight="48.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <!--
-                                                                                <Image url="@../Images/appLogo.png" />
-                                        -->
+
                                     </image>
                                     <cursor>
                                         <Cursor fx:constant="DEFAULT" />
                                     </cursor>
                                 </ImageView>
-                                <Label prefHeight="54.0" prefWidth="205.0" text=" TypeFaster" textFill="WHITE">
+                                <Label fx:id="lblNaslov" prefHeight="54.0" prefWidth="310.0" text=" ZAVRSNI RAD"
+                                       textFill="WHITE">
                                     <font>
                                         <Font size="35.0" />
                                     </font>
@@ -53,31 +52,29 @@
                         <Button fx:id="timerButton" mnemonicParsing="false" opacity="0.0" prefHeight="90.0" prefWidth="83.0" text="timerButton" />
                         <VBox prefHeight="90.0" prefWidth="263.0">
                             <children>
-                                <Label minWidth="-Infinity" prefHeight="30.0" prefWidth="77.0" text="Lesson ">
-                                    <padding>
-                                        <Insets left="20.0" />
-                                    </padding>
-                                </Label>
-                                <ComboBox fx:id="lessonChoiceBox" minWidth="-Infinity" prefHeight="35.0" prefWidth="242.0" styleClass="lessonChoiceBox">
+                                <ComboBox fx:id="cbDiff" minWidth="-Infinity"  prefHeight="35.0" prefWidth="242.0" styleClass="lessonChoiceBox">
                                     <padding>
                                         <Insets top="5.0" />
                                     </padding>
                                 </ComboBox>
-                                <ComboBox fx:id="cbDiff" minWidth="-Infinity" onAction="#lessonChoice" prefHeight="35.0" prefWidth="242.0" styleClass="lessonChoiceBox">
+                                <ComboBox fx:id="lessonChoiceBox" minWidth="-Infinity" prefHeight="35.0" prefWidth="242.0" styleClass="lessonChoiceBox">
                                     <padding>
                                         <Insets top="5.0" />
                                     </padding>
                                 </ComboBox>
                             </children>
                         </VBox>
-                        <JFXButton fx:id="goButton" minWidth="-Infinity" onAction="#onPressGo" prefHeight="46.0" prefWidth="56.0" styleClass="yellowKeys" text="Go">
+                        <JFXButton fx:id="goButton" minWidth="-Infinity" onAction="#onPressGo" prefHeight="46.0"
+                                   prefWidth="100.0" styleClass="yellowKeys" text="Go">
                             <HBox.margin>
                                 <Insets left="10.0" top="15.0" />
                             </HBox.margin>
                         </JFXButton>
                         <VBox prefHeight="86.0" prefWidth="144.0">
                             <children>
-                                <Label alignment="CENTER" minWidth="-Infinity" prefHeight="86.0" prefWidth="140.0" text="Elapsed Time">
+                                <Label fx:id="lblElapsed" alignment="CENTER" minWidth="-Infinity" prefHeight="86.0"
+                                       prefWidth="140.0"
+                                        text="Elapsed Time">
                                     <font>
                                         <Font size="18.0" />
                                     </font>
@@ -104,7 +101,8 @@
                 <Separator prefHeight="16.0" prefWidth="1900.0" />
             <Label fx:id="lblPoz" />
             <Label fx:id="lblNeg" />
-                <InlineCssTextArea fx:id="displayArea" layoutX="14.0" layoutY="14.0" prefHeight="346.0" prefWidth="611.0" />
+
+                <InlineCssTextArea fx:id="displayArea" layoutX="14.0" layoutY="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                 <Label fx:id="lblN" prefHeight="17.0" prefWidth="54.0" />
 
                 <JFXTextArea fx:id="textInputArea" focusColor="#ffffff00" prefHeight="74.0" prefWidth="1900.0" unFocusColor="#fdfbfb00">

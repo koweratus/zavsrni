@@ -30,11 +30,11 @@
                   <Insets left="400.0" top="13.0" />
                </HBox.margin>
             </JFXButton>
-            <JFXButton fx:id="btnView" alignment="CENTER" contentDisplay="CENTER" layoutX="410.0" layoutY="23.0" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="72.0" stylesheets="@../styles/dark-theme.css" text="View">
+           <!-- <JFXButton fx:id="btnView" alignment="CENTER" contentDisplay="CENTER" layoutX="410.0" layoutY="23.0" onAction="#handleButtonAction" prefHeight="31.0" prefWidth="72.0" stylesheets="@../styles/dark-theme.css" text="View">
                <HBox.margin>
                   <Insets left="25.0" top="13.0" />
                </HBox.margin>
-            </JFXButton>
+            </JFXButton>-->
          </children></HBox>
 
    </children>

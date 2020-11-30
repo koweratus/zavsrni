@@ -46,8 +46,10 @@ public class guestController implements Initializable {
     private ResourceBundle bundle;
     private Locale locale;
 
-    private String croatia = "Croatian";
-    private String englishUK = "English (UK)";
+    private final String croatia = "Croatian";
+    private final String englishUK = "English (UK)";
+    private final String serbian = "Serbian";
+    private final String russian = "Russian";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -55,8 +57,12 @@ public class guestController implements Initializable {
         if (preferences.getLanguage().equals(croatia)) {
             loadLang("hr");
         }
-        if (preferences.getLanguage().toString().equals(englishUK)) {
+        if (preferences.getLanguage().equals(englishUK)) {
             loadLang("en");
+        }  if (preferences.getLanguage().equals(serbian)) {
+            loadLang("sr");
+        }  if (preferences.getLanguage().equals(russian)) {
+            loadLang("ru");
         }
     }
 
@@ -68,7 +74,7 @@ public class guestController implements Initializable {
     public void handleClicks(ActionEvent actionEvent) {
         Preferences preferences = Preferences.getPreferences();
 
-        if (actionEvent.getSource() == btnStart && preferences.getLanguage().equals(englishUK)) {
+        if (actionEvent.getSource() == btnStart ) {
 
             if (preferences.getVideoResolution().equals("Fullscreen")) {
                 try {
@@ -85,7 +91,7 @@ public class guestController implements Initializable {
                 try {
                     FXMLLoader loader = new FXMLLoader((getClass().getResource("/fxml/Tutorial.fxml")));
                     Pane blah = loader.load();
-                    TutorialController controller = (TutorialController) loader.getController();
+                    TutorialController controller = loader.getController();
                     controller.GetUser(lbAccount.getText());
                     Scene scene = new Scene(blah);
                     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -98,33 +104,6 @@ public class guestController implements Initializable {
             }
 
 
-        }else if (actionEvent.getSource() == btnStart && preferences.getLanguage().equals(croatia)) {
-            if (preferences.getVideoResolution().equals("Fullscreen")) {
-                try {
-                    Parent blah = FXMLLoader.load(getClass().getResource("/fxml/start_HR.fxml"));
-                    Scene scene = new Scene(blah);
-                    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                    appStage.setScene(scene);
-                    appStage.setFullScreen(true);
-                    appStage.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                try {
-                    FXMLLoader loader = new FXMLLoader((getClass().getResource("/fxml/Tutorial.fxml")));
-                    Pane blah = loader.load();
-                    TutorialController controller = (TutorialController) loader.getController();
-                    controller.GetUser(lbAccount.getText());
-                    Scene scene = new Scene(blah);
-                    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                    appStage.setScene(scene);
-                    appStage.setFullScreen(false);
-                    appStage.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         if (actionEvent.getSource() == btnTutorial) {
             try {
@@ -152,7 +131,7 @@ public class guestController implements Initializable {
                 // Stage appStage = new Stage();
                 FXMLLoader loader = new FXMLLoader((getClass().getResource("/fxml/Account.fxml")));
                 Pane blah = loader.load();
-                AccountController controller = (AccountController) loader.getController();
+                AccountController controller = loader.getController();
                 controller.initDefaultValues(lbAccount.getText());
                 Scene scene = new Scene(blah);
                 Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -167,7 +146,7 @@ public class guestController implements Initializable {
             try {
                 FXMLLoader loader = new FXMLLoader((getClass().getResource("/fxml/History.fxml")));
                 Pane blah = loader.load();
-                HistoryController controller = (HistoryController) loader.getController();
+                HistoryController controller = loader.getController();
                 String email = controller.GetUser(lbAccount.getText());
                 controller.fillHistory(email);
                 Scene scene = new Scene(blah);

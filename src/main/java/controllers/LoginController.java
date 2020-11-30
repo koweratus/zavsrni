@@ -50,9 +50,10 @@ public class LoginController implements Initializable {
     private Label dontAcc;
     private ResourceBundle bundle;
     private Locale locale;
-    private String croatia = "Croatian";
-    private String englishUK = "English (UK)";
-
+    private final String croatia = "Croatian";
+    private final String englishUK = "English (UK)";
+    private final String serbian = "Serbian";
+    private final String russian = "Russian";
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -60,8 +61,12 @@ public class LoginController implements Initializable {
         if (preferences.getLanguage().equals(croatia)) {
             loadLang("hr");
         }
-        if (preferences.getLanguage().toString().equals(englishUK)) {
+        if (preferences.getLanguage().equals(englishUK)) {
             loadLang("en");
+        }    if (preferences.getLanguage().equals(serbian)) {
+            loadLang("sr");
+        }    if (preferences.getLanguage().equals(russian)) {
+            loadLang("ru");
         }
     }
 
@@ -136,8 +141,8 @@ public class LoginController implements Initializable {
     private void login(ActionEvent actionEvent){
 
         IRepo repo = RepoFactory.getRepo();
-        String username= txtEmail.getText().toString();
-        String password= txtPassword.getText().toString();
+        String username= txtEmail.getText();
+        String password= txtPassword.getText();
 
         if (repo.checkUsers(username,password)){
 
@@ -145,7 +150,7 @@ public class LoginController implements Initializable {
                 //Stage appStage = new Stage();
                 FXMLLoader loader= new FXMLLoader((getClass().getResource("/fxml/sample.fxml")));
                 Pane blah = loader.load();
-                Controller controller = (Controller) loader.getController();
+                Controller controller = loader.getController();
                 controller.GetUser(txtEmail.getText());
                 Scene scene = new Scene(blah);
                 Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();

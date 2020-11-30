@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 
 public class HistoryController implements Initializable {
     @FXML
-    private VBox pnItems = null;
+    private final VBox pnItems = null;
     @FXML
     private Label lbAccuracy;
     @FXML
@@ -61,9 +61,11 @@ public class HistoryController implements Initializable {
 
     private ResourceBundle bundle;
     private Locale locale;
-    private String croatia = "Croatian";
-    private String englishUK = "English (UK)";
-
+    private final String croatia = "Croatian";
+    private final String englishUK = "English (UK)";
+    private final String serbian = "Serbian";
+    private final String russian = "Russian";
+    private final String englishUS = "English (US)";
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -73,6 +75,12 @@ public class HistoryController implements Initializable {
             loadLang("hr");
         }
         if (preferences.getLanguage().equals(englishUK)) {
+            loadLang("en");
+        }     if (preferences.getLanguage().equals(russian)) {
+            loadLang("ru");
+        }     if (preferences.getLanguage().equals(serbian)) {
+            loadLang("sr");
+        } if (preferences.getLanguage().equals(englishUS)) {
             loadLang("en");
         }
 
@@ -102,7 +110,7 @@ public class HistoryController implements Initializable {
             try {
                 FXMLLoader loader= new FXMLLoader((getClass().getResource("/fxml/sample.fxml")));
                 Pane blah = loader.load();
-                Controller controller = (Controller) loader.getController();
+                Controller controller = loader.getController();
                 controller.GetUser(lbEmail.getText());
                 Scene scene = new Scene(blah);
                 Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -123,7 +131,7 @@ public class HistoryController implements Initializable {
         locale = new Locale(lang);
         bundle = ResourceBundle.getBundle("/lang/lang", locale);
         btnBack.setText(bundle.getString("btnCancel"));
-        btnView.setText(bundle.getString("btnView"));
+//        btnView.setText(bundle.getString("btnView"));
 
     }
 }

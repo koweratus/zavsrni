@@ -20,7 +20,7 @@
         <AnchorPane prefHeight="118.0" prefWidth="800.0" BorderPane.alignment="CENTER">
             <children>
                 <HBox />
-                <Label layoutX="371.0" layoutY="32.0" prefHeight="54.0" prefWidth="205.0" text=" TypeFaster" textFill="WHITE">
+                <Label fx:id="lblNaslov" layoutX="371.0" layoutY="32.0" prefHeight="54.0" prefWidth="310.0" text=" ZAVRSNI RAD" textFill="WHITE">
                     <font>
                         <Font size="35.0" />
                     </font>
@@ -38,6 +38,7 @@
                         <Cursor fx:constant="DEFAULT" />
                     </cursor>
                 </ImageView>
+                  <Label fx:id="filterField" layoutX="858.0" layoutY="76.0" prefHeight="16.0" prefWidth="7.0" />
             </children>
         </AnchorPane>
     </top>
@@ -84,11 +85,11 @@
                         <Font name="Arial" size="50.0" />
                     </font>
                 </Label>
-                <Label fx:id="resultBody" layoutX="60.0" layoutY="131.0" prefHeight="62.0" prefWidth="266.0" text="You completed the lesson. Here are your results. We recommend a true accuracy of at least 95%." wrapText="true">
+               <!-- <Label fx:id="resultBody" layoutX="60.0" layoutY="131.0" prefHeight="62.0" prefWidth="266.0" text="You completed the lesson. Here are your results. We recommend a true accuracy of at least 95%." wrapText="true">
                     <font>
                         <Font size="14.0" />
                     </font>
-                </Label>
+                </Label>-->
                 <ImageView fitHeight="216.0" fitWidth="428.0" layoutX="414.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                     <image>
 <!--
@@ -125,7 +126,7 @@
                     <children>
                         <VBox prefHeight="129.0" prefWidth="320.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="27.0" prefWidth="196.0" text="Speed" textFill="#777777">
+                                <Label fx:id="lblSpeed" alignment="CENTER" prefHeight="27.0" prefWidth="196.0" text="Speed" textFill="#777777">
                                     <padding>
                                         <Insets top="7.0" />
                                     </padding></Label>
@@ -143,7 +144,7 @@
                         </VBox>
                         <VBox layoutX="11.0" layoutY="11.0" prefHeight="113.0" prefWidth="250.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="217.0" text="Accuracy" textFill="#777777">
+                                <Label fx:id="lblAcc" alignment="CENTER" prefHeight="28.0" prefWidth="217.0" text="Accuracy" textFill="#777777">
                                     <padding>
                                         <Insets top="7.0" />
                                     </padding></Label>
@@ -161,7 +162,7 @@
                         </VBox>
                         <VBox layoutX="172.0" layoutY="11.0" prefHeight="113.0" prefWidth="250.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="229.0" text="Typing Time" textFill="#777777">
+                                <Label fx:id="lblTypingTime" alignment="CENTER" prefHeight="28.0" prefWidth="229.0" text="Typing Time" textFill="#777777">
                                     <padding>
                                         <Insets top="7.0" />
                                     </padding></Label>
@@ -178,19 +179,19 @@
                         </VBox>
                         <VBox layoutX="444.0" layoutY="11.0" prefHeight="113.0" prefWidth="270.0">
                             <children>
-                                <Label alignment="CENTER" prefHeight="28.0" prefWidth="229.0" text="Correct Wrong" textFill="#777777">
+                                <Label fx:id="lblTN" alignment="CENTER" prefHeight="28.0" prefWidth="229.0" text="Correct Wrong" textFill="#777777">
                                     <padding>
                                         <Insets top="7.0" />
                                     </padding></Label>
                                 <HBox prefHeight="100.0" prefWidth="200.0">
                                     <children>
-                                        <Label fx:id="positiveWords" alignment="CENTER" prefHeight="86.0" prefWidth="84.0" text="12">
+                                        <Label fx:id="positiveWords" alignment="CENTER" prefHeight="86.0" prefWidth="84.0">
                                             <font>
                                                 <Font size="48.0" />
                                             </font>
                                         </Label>
                                         <Separator orientation="VERTICAL" prefHeight="47.0" prefWidth="5.0" />
-                              <Label fx:id="negativeWords" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="86.0" prefWidth="84.0" text="12">
+                              <Label fx:id="negativeWords" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="86.0" prefWidth="84.0">
                                  <font>
                                     <Font size="48.0" />
                                  </font>
@@ -202,21 +203,21 @@
                     </children>
                 </HBox>
                 <HBox layoutX="59.0" layoutY="404.0" prefHeight="34.0" prefWidth="782.0" style="-fx-border-color: #ddd; -fx-border-radius: 7;">
-                    <children>
-                        <Label prefHeight="34.0" prefWidth="192.0" text="Your Accuracy with backspace is : ">
+              <!--      <children>
+                       &lt;!&ndash; <Label prefHeight="34.0" prefWidth="192.0" text="Your Accuracy with backspace is : ">
                             <opaqueInsets>
                                 <Insets />
                             </opaqueInsets>
                             <HBox.margin>
                                 <Insets left="10.0" />
                             </HBox.margin>
-                        </Label>
-                        <Label fx:id="accuracy" prefHeight="31.0" prefWidth="57.0" text="98.99%">
+                        </Label>&ndash;&gt;
+                       &lt;!&ndash; <Label fx:id="accuracy" prefHeight="31.0" prefWidth="57.0" text="98.99%">
                             <font>
                                 <Font size="14.0" />
                             </font>
-                        </Label>
-                    </children>
+                        </Label>&ndash;&gt;
+                    </children>-->
                 </HBox>
             <Label fx:id="txtEmail" layoutX="517.0" layoutY="104.0" />
             <Label fx:id="lblN" layoutX="517.0" layoutY="104.0" />
