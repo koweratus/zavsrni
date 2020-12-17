@@ -263,11 +263,12 @@ public class TutorialController implements Initializable {
                     String s1 = displayArea.getText();
                     String s2 = textInputArea.getText();
                     Pattern p = Pattern.compile("[a-zA-Z]*[^\\s+]");
-                    //(\w+)[^\s]+
-                    //[a-zA-Z]+
                     Matcher m1 = p.matcher(s1);
                     Matcher m2 = p.matcher(s2);
+                    while (m1.find() && m2.find()) {
+                        displayArea.setStyle(m1.start(), m1.end(), "-fx-font-weight: bold;");
 
+                    }
 
              /*       String str = displayArea.getText();
                     String rts = textInputArea.getText();
@@ -287,17 +288,7 @@ public class TutorialController implements Initializable {
                         lblPoz.setText(String.valueOf(pozitvni/5));
                     }
 
-                    while (m1.find() && m2.find()) {
-                           System.out.println("Zadane rici: " + m1.group() + " utipkane rici: " + m2.group());
-                        displayArea.setStyle(m1.start(), m1.end(), "-fx-font-weight: bold;");
-                        if (m1.group().equals(m2.group())) {
 
-
-                        } else if (!(m1.group().equals(m2.group())) ) {
-
-
-                        }
-                    }
 
                     //DEBUG STATEMENT System.out.println("expected : " + expectedKey);
 

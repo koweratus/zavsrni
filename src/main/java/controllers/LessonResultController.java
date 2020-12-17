@@ -234,8 +234,6 @@ public class LessonResultController implements Initializable {
                 loadLang("sr");
             }
 
-            System.out.println("email "+email);
-            System.out.println("lesson "+lesson);
             Double timeInMin = (Double.parseDouble(timeToComplete.substring(0, 2)) + (Double.parseDouble(timeToComplete.substring(3, 5)) / 60.0));
             double tacc = (double) (103 - (errorCountWithoutBackspace * 100) / totalChar);
             double wpm;

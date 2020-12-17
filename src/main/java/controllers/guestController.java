@@ -43,6 +43,8 @@ public class guestController implements Initializable {
 
     @FXML
     private Label lbAccount;
+    @FXML
+    private Label lbLogo;
     private ResourceBundle bundle;
     private Locale locale;
 
@@ -196,7 +198,7 @@ public class guestController implements Initializable {
         btnTutorial.setText(bundle.getString("btnTutorial"));
         btnLogin.setText(bundle.getString("btnLogin"));
         btnExit.setText(bundle.getString("btnExit"));
-
+        lbLogo.setText(bundle.getString("lblNaslov"));
 
     }
 
