@@ -21,6 +21,8 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
 
     @FXML
+    private Label lbLogo;
+    @FXML
     private Button btnExit;
 
     @FXML
@@ -198,6 +200,7 @@ public class Controller implements Initializable {
         btnTutorial.setText(bundle.getString("btnTutorial"));
         btnSignout.setText(bundle.getString("btnSignout"));
         btnExit.setText(bundle.getString("btnExit"));
+        lbLogo.setText(bundle.getString("lblNaslov"));
 
     }
 
