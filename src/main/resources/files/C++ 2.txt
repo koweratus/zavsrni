@@ -1,10 +1,13 @@
 namespace WebCore 
 {using namespace HTMLNames;
 namespace 
-{HTMLTokenizerState::State tokenizerStateForContextElement(Element* contextElement, bool reportErrors)
+{HTMLTokenizerState::State tokenizerStateForContextElement
+(Element* contextElement, bool reportErrors)
 { if (!contextElement) return HTMLTokenizerState::DataState;   
 const QualifiedName& contextTag = contextElement->tagQName();
 if (contextTag.matches(titleTag) || contextTag.matches(textareaTag))
 return HTMLTokenizerState::RCDATAState;
-if (contextTag.matches(styleTag) || contextTag.matches(xmpTag) || contextTag.matches(iframeTag)
-|| (contextTag.matches(noembedTag) && HTMLTreeBuilder::pluginsEnabled(contextElement->document()->frame()))
+if (contextTag.matches(styleTag) || contextTag.matches(xmpTag)
+|| contextTag.matches(iframeTag)
+|| (contextTag.matches(noembedTag) && HTMLTreeBuilder::
+pluginsEnabled(contextElement->document()->frame()))

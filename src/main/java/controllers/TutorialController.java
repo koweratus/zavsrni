@@ -105,6 +105,8 @@ public class TutorialController implements Initializable {
             .observableArrayList("BeginnerRU 1", "BeginnerRU 2", "BeginnerRU 3", "BeginnerRU 4", "BeginnerRU 5");
     private final ObservableList<String> BeginnerUS = FXCollections
             .observableArrayList("BeginnerUS 1", "BeginnerUS 2", "BeginnerUS 3", "BeginnerUS 4", "BeginnerUS 5");
+    private final ObservableList<String> BeginnerAzerty = FXCollections
+            .observableArrayList("BeginnerAzerty 1", "BeginnerAzerty 2", "BeginnerAzerty 3", "BeginnerAzerty 4", "BeginnerAzerty 5");
     private final ObservableList<String> BeginnerDvorak = FXCollections
             .observableArrayList("BeginnerDvorak 1", "BeginnerDvorak 2", "BeginnerDvorak 3", "BeginnerDvorak 4", "BeginnerDvorak 5");
     private final ObservableList<String> BeginnerColemak = FXCollections
@@ -117,6 +119,8 @@ public class TutorialController implements Initializable {
             .observableArrayList("AdvancedSR 1", "AdvancedSR 2", "AdvancedSR 3", "AdvancedSR 4", "AdvancedSR 5");
     private final ObservableList<String> AdvancedUS = FXCollections
             .observableArrayList("AdvancedUS 1", "AdvancedUS 2", "AdvancedUS 3", "AdvancedUS 4", "AdvancedUS 5");
+    private final ObservableList<String> AdvancedAzerty = FXCollections
+            .observableArrayList("AdvancedAzerty 1", "AdvancedAzerty 2", "AdvancedAzerty 3", "AdvancedAzerty 4", "AdvancedAzerty 5");
     private final ObservableList<String> AdvancedDvorak = FXCollections
             .observableArrayList("AdvancedDvorak 1", "AdvancedDvorak 2", "AdvancedDvorak 3", "AdvancedDvorak 4", "AdvancedDvorak 5");
     private final ObservableList<String> AdvancedColemak = FXCollections
@@ -138,6 +142,9 @@ public class TutorialController implements Initializable {
     private final ObservableList<String> IntermediateUS = FXCollections
             .observableArrayList("IntermediateUS 1", "IntermediateUS 2", "IntermediateUS 3", "IntermediateUS 4",
                     "IntermediateUS 5");
+    private final ObservableList<String> IntermediateAzerty = FXCollections
+            .observableArrayList("IntermediateAzerty 1", "IntermediateAzerty 2", "IntermediateAzerty 3", "IntermediateAzerty 4",
+                    "IntermediateAzerty 5");
     private final ObservableList<String> IntermediateDvorak = FXCollections
             .observableArrayList("IntermediateDvorak 1", "IntermediateDvorak 2", "IntermediateDvorak 3", "IntermediateDvorak 4",
                     "IntermediateDvorak 5");
@@ -223,6 +230,7 @@ public class TutorialController implements Initializable {
     }
 
     private int negativni = 0;
+
     @FXML
     void onPressGo(ActionEvent event) {
 
@@ -241,8 +249,8 @@ public class TutorialController implements Initializable {
             textInputArea.requestFocus();//brings focus on the textInputArea.
 
             textInputArea.setOnKeyTyped(new EventHandler<KeyEvent>() {
-                private int pozitvni=0;
-                private int negativni=0;
+                private int pozitvni = 0;
+                private int negativni = 0;
 
                 @Override
                 public void handle(KeyEvent event) {
@@ -277,17 +285,16 @@ public class TutorialController implements Initializable {
 
                         System.out.println(rts.charAt(i));
                     }*/
-                    if(typedKey!=expectedKey ){
+                    if (typedKey != expectedKey) {
                         negativni++;
-                        System.out.println("negativni:" + negativni/5);
-                        lblNeg.setText(String.valueOf(negativni/5));
-                    }else {
+                        System.out.println("negativni:" + negativni / 5);
+                        lblNeg.setText(String.valueOf(negativni / 5));
+                    } else {
 
                         pozitvni++;
-                        System.out.println("pozitivni:" + pozitvni/5);
-                        lblPoz.setText(String.valueOf(pozitvni/5));
+                        System.out.println("pozitivni:" + pozitvni / 5);
+                        lblPoz.setText(String.valueOf(pozitvni / 5));
                     }
-
 
 
                     //DEBUG STATEMENT System.out.println("expected : " + expectedKey);
@@ -464,7 +471,7 @@ public class TutorialController implements Initializable {
             String lesson = lessonChoiceBox.getSelectionModel().getSelectedItem();
             lblN.setText(lesson);
             lblN.setVisible(false);
-            System.out.println("sdasda "+lesson);
+            System.out.println("sdasda " + lesson);
 
         });
 
@@ -482,8 +489,13 @@ public class TutorialController implements Initializable {
                     lessonChoiceBox.setValue("BeginnerHR 1");
                     lessonChoiceBox.setItems(BeginnerHR);
                 } else if (lang.equals(englishUK)) {
-                    lessonChoiceBox.setValue("Beginner 1");
-                    lessonChoiceBox.setItems(Beginner);
+                    if (preferences.getKeyboardLayout().equals("AZERTY")) {
+                        lessonChoiceBox.setValue("BeginnerAzerty 1");
+                        lessonChoiceBox.setItems(BeginnerAzerty);
+                    } else {
+                        lessonChoiceBox.setValue("Beginner 1");
+                        lessonChoiceBox.setItems(Beginner);
+                    }
                 } else if (lang.equals(serbia)) {
                     lessonChoiceBox.setValue("BeginnerSR 1");
                     lessonChoiceBox.setItems(BeginnerSR);
@@ -508,8 +520,13 @@ public class TutorialController implements Initializable {
                     lessonChoiceBox.setValue("AdvancedHR 1");
                     lessonChoiceBox.setItems(AdvancedHR);
                 } else if (lang.equals(englishUK)) {
-                    lessonChoiceBox.setValue("Advanced 1");
-                    lessonChoiceBox.setItems(Advanced);
+                    if (preferences.getKeyboardLayout().equals("AZERTY")) {
+                        lessonChoiceBox.setValue("AdvancedAzerty 1");
+                        lessonChoiceBox.setItems(AdvancedAzerty);
+                    } else {
+                        lessonChoiceBox.setValue("Advanced 1");
+                        lessonChoiceBox.setItems(Advanced);
+                    }
                 } else if (lang.equals(serbia)) {
                     lessonChoiceBox.setValue("AdvancedSR 1");
                     lessonChoiceBox.setItems(AdvancedSR);
@@ -535,8 +552,13 @@ public class TutorialController implements Initializable {
                     lessonChoiceBox.setValue("IntermediateHR 1");
                     lessonChoiceBox.setItems(IntermediateHR);
                 } else if (lang.equals(englishUK)) {
-                    lessonChoiceBox.setValue("Intermediate 1");
-                    lessonChoiceBox.setItems(Intermediate);
+                    if (preferences.getKeyboardLayout().equals("AZERTY")) {
+                        lessonChoiceBox.setValue("IntermediateAzerty 1");
+                        lessonChoiceBox.setItems(IntermediateAzerty);
+                    } else {
+                        lessonChoiceBox.setValue("Intermediate 1");
+                        lessonChoiceBox.setItems(Intermediate);
+                    }
                 } else if (lang.equals(serbia)) {
                     lessonChoiceBox.setValue("IntermediateSR 1");
                     lessonChoiceBox.setItems(IntermediateSR);

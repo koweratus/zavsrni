@@ -70,7 +70,8 @@ public class SettingsController {
             .observableArrayList("QWERTZ");
     private final ObservableList<String> KeyboardLayoutRus = FXCollections
             .observableArrayList("QWERTY");
-
+    private final ObservableList<String> KeyboardLayoutUK = FXCollections
+            .observableArrayList("QWERTZ", "AZERTY");
 
     @FXML
     private void initialize() {
@@ -98,11 +99,15 @@ public class SettingsController {
         cbLanguage.setOnAction(e -> {
             String lang = (String) cbLanguage.getSelectionModel().getSelectedItem();
             System.out.println(lang);
-            if (lang.equals(croatia) || lang.equals(serbian) || lang.equals(englishUK)) {
+            if (lang.equals(croatia) || lang.equals(serbian) ) {
                 cbKeyboardLayout.setValue("QWERTZ");
                 cbKeyboardLayout.setItems(KeyboardLayoutNormal);
 
-            } else if (lang.equals(englishUS)) {
+            }else if (lang.equals(englishUK)){
+                cbKeyboardLayout.setValue("QWERTZ");
+                cbKeyboardLayout.setItems(KeyboardLayoutUK);
+            }
+            else if (lang.equals(englishUS)) {
                 cbKeyboardLayout.setValue("QWERTY");
                 cbKeyboardLayout.setItems(KeyboardLayout);
             } else if (lang.equals(russian)) {
