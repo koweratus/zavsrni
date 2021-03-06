@@ -78,7 +78,7 @@ public class Controller implements Initializable {
 
             if (preferences.getVideoResolution().equals("Fullscreen")) {
                 try {
-                    Parent blah = FXMLLoader.load(getClass().getResource("/fxml/Tutorial.fxml"));
+                    Parent blah = FXMLLoader.load(getClass().getResource("/fxml/Start.fxml"));
                     Scene scene = new Scene(blah);
                     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                     appStage.setScene(scene);
@@ -89,9 +89,9 @@ public class Controller implements Initializable {
                 }
             } else {
                 try {
-                    FXMLLoader loader = new FXMLLoader((getClass().getResource("/fxml/Tutorial.fxml")));
+                    FXMLLoader loader = new FXMLLoader((getClass().getResource("/fxml/Start.fxml")));
                     Pane blah = loader.load();
-                    TutorialController controller = (TutorialController) loader.getController();
+                    StartController controller = (StartController) loader.getController();
                     controller.GetUser(lbAccount.getText());
                     Scene scene = new Scene(blah);
                     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -117,6 +117,7 @@ public class Controller implements Initializable {
                 e.printStackTrace();
             }
             ImagesController controller = (ImagesController) loader.getController();
+            controller.GetUser(lbAccount.getText());
             Scene scene = new Scene(blah);
             Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             appStage.setScene(scene);

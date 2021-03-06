@@ -130,7 +130,6 @@
     -fx-fill: -fx-primary;
 }
 
-/*Text styling*/
 .main-text
 {
     -fx-fill: -fx-secondary;
@@ -161,19 +160,6 @@
     -fx-hgap:8;
 }
 
-/*Chart Styling*/
-.data0.chart-pie{
-    -fx-pie-color: -fx-secondary;
-    -fx-border-color: derive(-fx-secondary, -30%);
-}
-.data1.chart-pie{
-    -fx-pie-color: derive(-fx-primary, 30%);
-    -fx-border-color: derive(-fx-primary, 30%);
-}
-.chart-pie-label
-{
-    -fx-fill : derive(-fx-secondary, -5%);
-}
 
 /*About window*/
 .about-text{
@@ -293,30 +279,6 @@
     -fx-background-radius: 5px;
     -fx-fill: derive(blue, 80%);
     -fx-cursor: hand;
-}
-
-/*Checkbox*/
-
-.checkbox-main{
-    -fx-text-fill: -fx-secondary;
-    -jfx-checked-color: -fx-primary;
-    -fx-font-size: 10pt;
-}
-
-/*Progrss bar*/
-
-.progress-bar-main .track{
-    -fx-background-color: -fx-primary;
-}
-.progress-bar-main .bar{
-    -fx-background-color: -fx-secondary;
-    -fx-padding: 5px;
-}
-
-.common-label{
-    -fx-background-color: transparent;
-    -fx-text-fill: -fx-secondary;
-    -fx-font-size: 12pt;
 }
 
 /*Alert Dialog*/

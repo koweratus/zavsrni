@@ -72,7 +72,6 @@ public class AccountController implements Initializable {
             loadLang("en");
         }
         IRepo repo = RepoFactory.getRepo();
-        //  Controller controller = loader.getController();
         Users c = utils.Utils.getCustomerFromEmail(email);
         Users u = new Users(c.getUsersId(), c.getFirstName(), c.getLastName(), c.getEmail(),
                 c.getPassword());
@@ -83,7 +82,7 @@ public class AccountController implements Initializable {
         password = u.getPassword();
         setPassword(password);
 
-        //Preferences preferences = Preferences.getPreferences();
+
         lbAccount.setText(String.valueOf(username));
         txtName.setText(String.valueOf(firstName));
         txtSurname.setText(String.valueOf(finePerDay));
@@ -120,21 +119,14 @@ public class AccountController implements Initializable {
 
     public void handleSave(ActionEvent actionEvent) {
         IRepo repo = RepoFactory.getRepo();
-        //  Controller controller = loader.getController();
-
         Users c = utils.Utils.getCustomerFromEmail(txtEmail.getText());
         Users u = new Users(c.getUsersId(), c.getFirstName(), c.getLastName(), c.getEmail(),
                 c.getPassword());
 
-/*        String firstName = u.setFirstName();
-        String finePerDay = u.getLastName();
-        String username = u.getEmail();
-        password= u.getPassword();
-        setPassword(password);*/
+
         String name = txtName.getText();
         c.setFirstName(name);
         System.out.println(name);
-        //Preferences preferences = Preferences.getPreferences();
     }
 
     private void loadLang(String lang) {
@@ -144,7 +136,6 @@ public class AccountController implements Initializable {
         lblName.setText(bundle.getString("lblName"));
         lblSurname.setText(bundle.getString("lblSurname"));
         lblPassword.setText(bundle.getString("lblPassword"));
-//        btnSave.setText(bundle.getString("btnSave"));
         btnBack.setText(bundle.getString("btnBack"));
 
 

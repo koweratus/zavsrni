@@ -29,7 +29,7 @@ public class DataValidation {
             return true;
         } else {
 
-            lb.setText("Password must contain at least one(Digit, Lowercase, UpperCase and Special Character)");
+            lb.setText("Password must contain at least one (Digit, Lowercase, UpperCase and Special Character)");
             lb.setTextFill(Color.web("#ed2f4c"));
             pw.getStyleClass().add("wrong-credentials");
             return false;

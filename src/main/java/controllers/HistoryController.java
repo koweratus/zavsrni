@@ -130,8 +130,7 @@ public class HistoryController implements Initializable {
     private void loadLang(String lang) {
         locale = new Locale(lang);
         bundle = ResourceBundle.getBundle("/lang/lang", locale);
-        btnBack.setText(bundle.getString("btnCancel"));
-//        btnView.setText(bundle.getString("btnView"));
+        btnBack.setText(bundle.getString("btnBack"));
 
     }
 }

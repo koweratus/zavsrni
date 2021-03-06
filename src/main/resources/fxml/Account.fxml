@@ -62,11 +62,6 @@
                   <JFXPasswordField fx:id="txtPassword" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <JFXTextField fx:id="txtEmail" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <JFXTextField fx:id="txtSurname" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <!--          <Button fx:id="btnSave" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleSave" prefHeight="25.0" prefWidth="94.0" stylesheets="@../styles/style.css" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                     <GridPane.margin>
-                        <Insets left="25.0" />
-                     </GridPane.margin>
-                  </Button>-->
                   <Button fx:id="btnBack" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleBack" prefHeight="25.0" prefWidth="94.0" stylesheets="@../styles/style.css" text="Back" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets left="25.0" />

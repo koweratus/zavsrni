@@ -128,25 +128,8 @@ public class AlertMaker {
         nodeToBeBlurred.setEffect(blur);
     }
 
-/*    public static void showTrayMessage(String title, String message) {
-        try {
-            SystemTray tray = SystemTray.getSystemTray();
-            BufferedImage image = ImageIO.read(AlertMaker.class.getResource(LibraryAssistantUtil.ICON_IMAGE_LOC));
-            TrayIcon trayIcon = new TrayIcon(image, "Library Assistant");
-            trayIcon.setImageAutoSize(true);
-            trayIcon.setToolTip("Library Assistant");
-            tray.add(trayIcon);
-            trayIcon.displayMessage(title, message, MessageType.INFO);
-            tray.remove(trayIcon);
-        } catch (Exception exp) {
-            exp.printStackTrace();
-        }
-    }*/
-
     private static void styleAlert(Alert alert) {
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-        //LibraryAssistantUtil.setStageIcon(stage);
-
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(AlertMaker.class.getResource("/styles/dark-theme.css").toExternalForm());
         dialogPane.getStyleClass().add("custom-alert");

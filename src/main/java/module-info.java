@@ -10,6 +10,7 @@ module ZavrsniProjektanz {
     requires org.apache.servicemix.bundles.commons.codec;
     requires org.fxmisc.richtext;
     requires com.jfoenix;
+    requires jbcrypt;
     opens controllers;
     opens repo;
     opens model;

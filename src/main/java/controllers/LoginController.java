@@ -14,12 +14,16 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Users;
+import org.mindrot.jbcrypt.BCrypt;
 import repo.IRepo;
 import repo.RepoFactory;
 import utils.Preferences;
+import utils.Utils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -28,18 +32,12 @@ public class LoginController implements Initializable {
     private JFXTextField txtEmail;
     @FXML
     private JFXPasswordField txtPassword;
-
     @FXML
     private Label lbl_close;
-
     @FXML
     private JFXTextField txtFirstName;
     @FXML
     private JFXTextField txtLastName;
-
-
-
-
     @FXML
     private JFXButton btnRegister;
     @FXML
@@ -63,30 +61,14 @@ public class LoginController implements Initializable {
         }
         if (preferences.getLanguage().equals(englishUK)) {
             loadLang("en");
-        }    if (preferences.getLanguage().equals(serbian)) {
+        }
+        if (preferences.getLanguage().equals(serbian)) {
             loadLang("sr");
-        }    if (preferences.getLanguage().equals(russian)) {
+        }
+        if (preferences.getLanguage().equals(russian)) {
             loadLang("ru");
         }
     }
-
-/*
-    @FXML
-    private void handleLoginButtonAction(ActionEvent event) {
-        String uname = StringUtils.trimToEmpty(username.getText());
-        String pword = DigestUtils.shaHex(password.getText());
-
-        if (uname.equals(preference.getUsername()) && pword.equals(preference.getPassword())) {
-            closeStage();
-            loadMain();
-            LOGGER.log(Level.INFO, "User successfully logged in {}", uname);
-        }
-        else {
-            username.getStyleClass().add("wrong-credentials");
-            password.getStyleClass().add("wrong-credentials");
-        }
-    }
-*/
 
 
     private void closeStage() {
@@ -101,15 +83,14 @@ public class LoginController implements Initializable {
             stage.setScene(new Scene(parent));
             stage.show();
             //LibraryAssistantUtil.setStageIcon(stage);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
-    public void handleLoginButtonAction(ActionEvent event){
-        if(event.getSource()== btnCancel){
+    public void handleLoginButtonAction(ActionEvent event) {
+        if (event.getSource() == btnCancel) {
             try {
                 Parent blah = FXMLLoader.load(getClass().getResource("/fxml/guest.fxml"));
                 Scene scene = new Scene(blah);
@@ -120,11 +101,10 @@ public class LoginController implements Initializable {
                 e.printStackTrace();
             }
         }
-        if (event.getSource()==btnLogin){
+        if (event.getSource() == btnLogin) {
             login(event);
         }
-        if (event.getSource()==btnRegister)
-        {
+        if (event.getSource() == btnRegister) {
             try {
                 Parent blah = FXMLLoader.load(getClass().getResource("/fxml/Register.fxml"));
                 Scene scene = new Scene(blah);
@@ -138,36 +118,42 @@ public class LoginController implements Initializable {
 
     }
 
-    private void login(ActionEvent actionEvent){
+    private void login(ActionEvent actionEvent) {
 
         IRepo repo = RepoFactory.getRepo();
-        String username= txtEmail.getText();
-        String password= txtPassword.getText();
+        Users u = utils.Utils.getCustomerFromEmail(txtEmail.getText());
+        String username = txtEmail.getText();
+        String password = txtPassword.getText();
+        if (repo.checkUsers(username, password)) {
+                try {
+                    //Stage appStage = new Stage();
+                    FXMLLoader loader = new FXMLLoader((getClass().getResource("/fxml/sample.fxml")));
+                    Pane blah = loader.load();
+                    Controller controller = loader.getController();
+                    controller.GetUser(txtEmail.getText());
+                    Scene scene = new Scene(blah);
+                    Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                    appStage.setScene(scene);
+                    appStage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-        if (repo.checkUsers(username,password)){
 
-            try {
-                //Stage appStage = new Stage();
-                FXMLLoader loader= new FXMLLoader((getClass().getResource("/fxml/sample.fxml")));
-                Pane blah = loader.load();
-                Controller controller = loader.getController();
-                controller.GetUser(txtEmail.getText());
-                Scene scene = new Scene(blah);
-                Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                appStage.setScene(scene);
-                appStage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }else
-        {
+        } else {
             txtEmail.getStyleClass().add("wrong-credentials");
             txtPassword.getStyleClass().add("wrong-credentials");
 
         }
 
 
+    }
+
+    private void checkPass(String plainPassword, String hashedPassword) {
+        if (BCrypt.checkpw(plainPassword, hashedPassword))
+            System.out.println("The password matches.");
+        else
+            System.out.println("The password does not match.");
     }
 
     private void loadLang(String lang) {
@@ -177,6 +163,8 @@ public class LoginController implements Initializable {
         btnRegister.setText(bundle.getString("btnRegister"));
         btnLogin.setText(bundle.getString("btnLogin"));
         dontAcc.setText(bundle.getString("dontAcc"));
+        txtPassword.setText(bundle.getString("lblPassword"));
+        txtEmail.setText(bundle.getString("lblEmail"));
 
 
     }

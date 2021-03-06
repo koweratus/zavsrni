@@ -80,7 +80,7 @@ public class guestController implements Initializable {
 
             if (preferences.getVideoResolution().equals("Fullscreen")) {
                 try {
-                    Parent blah = FXMLLoader.load(getClass().getResource("/fxml/Tutorial.fxml"));
+                    Parent blah = FXMLLoader.load(getClass().getResource("/fxml/Start.fxml"));
                     Scene scene = new Scene(blah);
                     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                     appStage.setScene(scene);
@@ -91,9 +91,9 @@ public class guestController implements Initializable {
                 }
             } else {
                 try {
-                    FXMLLoader loader = new FXMLLoader((getClass().getResource("/fxml/Tutorial.fxml")));
+                    FXMLLoader loader = new FXMLLoader((getClass().getResource("/fxml/Start.fxml")));
                     Pane blah = loader.load();
-                    TutorialController controller = loader.getController();
+                    StartController controller = loader.getController();
                     controller.GetUser(lbAccount.getText());
                     Scene scene = new Scene(blah);
                     Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -109,7 +109,7 @@ public class guestController implements Initializable {
         }
         if (actionEvent.getSource() == btnTutorial) {
             try {
-                Parent blah = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+                Parent blah = FXMLLoader.load(getClass().getResource("/fxml/Images.fxml"));
                 Scene scene = new Scene(blah);
                 Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 appStage.setScene(scene);
@@ -120,17 +120,7 @@ public class guestController implements Initializable {
 
         }
         if (actionEvent.getSource() == btnAccount) {
-   /*         try {
-                Parent blah = FXMLLoader.load(getClass().getResource("/account/Account.fxml"));
-                Scene scene = new Scene(blah);
-                Stage appStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-                appStage.setScene(scene);
-                appStage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
             try {
-                // Stage appStage = new Stage();
                 FXMLLoader loader = new FXMLLoader((getClass().getResource("/fxml/Account.fxml")));
                 Pane blah = loader.load();
                 AccountController controller = loader.getController();

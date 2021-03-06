@@ -1,10 +1,5 @@
 package controllers;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
@@ -14,14 +9,12 @@ import javafx.scene.control.*;
 import org.fxmisc.richtext.InlineCssTextArea;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -40,13 +33,10 @@ import javafx.util.Duration;
 import utils.Preferences;
 
 
-public class TutorialController implements Initializable {
+public class StartController implements Initializable {
 
     @FXML
     private ComboBox<String> lessonChoiceBox;
-
-    @FXML
-    private CheckBox soundCheckBox;
 
     @FXML
     private Label ETLabel;
@@ -165,11 +155,6 @@ public class TutorialController implements Initializable {
 
     //progress tracking variables
 
-    private int errorCountWithoutBackspace;
-
-
-    private int errorCountWithBackspace;
-
     private int totalChar;
 
     private char expectedKey;
@@ -229,8 +214,6 @@ public class TutorialController implements Initializable {
 
     }
 
-    private int negativni = 0;
-
     @FXML
     void onPressGo(ActionEvent event) {
 
@@ -238,8 +221,6 @@ public class TutorialController implements Initializable {
             BufferedReader reader =
                     new BufferedReader(new FileReader("src/main/resources/files/" + lessonChoiceBox.getSelectionModel().getSelectedItem().toString() + ".txt"));
 
-            errorCountWithBackspace = 0;
-            errorCountWithoutBackspace = 0;
             totalChar = 0;
             indexOfLine = 0;
             displayArea.setStyle("-fx-font-size: 30px; ");
@@ -265,9 +246,7 @@ public class TutorialController implements Initializable {
 
                     typedKey = event.getCharacter().charAt(0);
 
-                    System.out.println("expectedKey : " + expectedKey + " index:" + indexOfLine + " words " +
-                            "count:" + wordCount + " total char:" + totalChar + " typedKey: " + typedKey + " expected" +
-                            " word:" + Arrays.toString(s));
+
                     String s1 = displayArea.getText();
                     String s2 = textInputArea.getText();
                     Pattern p = Pattern.compile("[a-zA-Z]*[^\\s+]");
@@ -275,24 +254,13 @@ public class TutorialController implements Initializable {
                     Matcher m2 = p.matcher(s2);
                     while (m1.find() && m2.find()) {
                         displayArea.setStyle(m1.start(), m1.end(), "-fx-font-weight: bold;");
-
                     }
 
-             /*       String str = displayArea.getText();
-                    String rts = textInputArea.getText();
-                    System.out.println("Words from string \"" + s1 + "\" : ");
-                    for(int i=0; i<=str.length()-1; i++) {
-
-                        System.out.println(rts.charAt(i));
-                    }*/
                     if (typedKey != expectedKey) {
                         negativni++;
-                        System.out.println("negativni:" + negativni / 5);
                         lblNeg.setText(String.valueOf(negativni / 5));
                     } else {
-
                         pozitvni++;
-                        System.out.println("pozitivni:" + pozitvni / 5);
                         lblPoz.setText(String.valueOf(pozitvni / 5));
                     }
 
@@ -307,23 +275,12 @@ public class TutorialController implements Initializable {
 
                     //if the last letter of the shown line is typed, read the next line of the lesson
                     if (indexOfLine == line.length() - 1) {
-                        //       System.out.println("typed : " + textInputArea.getText() + " index:" + indexOfLine);
 
-                        //DEBUG STATEMENT   System.out.println("typed : " + typedKey);
-                        //   System.out.println("typed : " + textInputArea.getText());
                         //check the last character
                         if (typedKey != expectedKey) {
-
                             textInputArea.setId("warn");//warns the user by setting background red.
-                            // errorCountWithBackspace++;
-                            errorCountWithoutBackspace++;
-
-
-                        } else if ((event.getCharacter().equals("\u0008")) && typedKey == expectedKey) {
-                            errorCountWithBackspace--;
                         }
                         //DEBUG STATEMENT       System.out.println("false");
-
                         try {
                             //if file is not completely read
                             if ((line = reader.readLine()) != null) {
@@ -338,15 +295,12 @@ public class TutorialController implements Initializable {
                             }
                             //end of file reached
                             else {
-                                timerButton.fire(); //timer is paused.
-                                timeToComplete = ETLabel.getText(); // final time reading is taken and the end of the lesson.
-                                //displayArea.setText(Integer.toString(totalChar));
-                                //close the lesson file.
+                                timerButton.fire();
+                                timeToComplete = ETLabel.getText();
+
                                 reader.close();
-                                //lesson finished - switch the scene to the result page.
                                 goToResultButton.fire();
                             }
-                            //In any of the above cases, set the index of line to zero - for the next line or the next lesson.
                             indexOfLine = 0;
                         } catch (IOException ex) {
                             ex.printStackTrace();
@@ -355,36 +309,26 @@ public class TutorialController implements Initializable {
 
                     //if not last character and if key pressed is not backspace.
                     else if (!(event.getCharacter().equals("\u0008"))) {
-//DEBUG STATEMENT       System.out.println("typed : " + typedKey);
                         if (typedKey != expectedKey) {
 
                             textInputArea.setId("warn");
-                            errorCountWithBackspace++;
-                            errorCountWithoutBackspace++;
 
-//DEBUG STATEMENT           System.out.println("false");
                         }
-//DEBUG STATEMENT       System.out.println("true");
+
                         indexOfLine++;
                     }
-                    // if backspace pressed, decrements the indexOfLine and only the errorCountWithBackspace.
                     else if (event.getCharacter().equals("\u0008") && textInputArea.getText() != null) {
                         indexOfLine--;
-                        if (errorCountWithBackspace > 0)
-                            errorCountWithBackspace--;
+
                     }
-                    //call the showKeyPressed method to show key pressed in GUI Keyboard.
                 }
             });
 
-            //First line is displayed.
             if ((line = reader.readLine()) != null) {
                 wordCount += line.split("\\s+").length;
                 s = line.split("\\s+");
                 displayArea.appendText(line);
                 totalChar += line.length();
-                // wordCount += countSpaces(line);
-//DEBUG STATEMENT System.out.println(line);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -392,17 +336,6 @@ public class TutorialController implements Initializable {
     }
 
 
-    int countSpaces(String myLine) {
-        int counter = 0;
-        for (int i = 0; i < myLine.length(); i++) {
-            if (myLine.charAt(i) == ' ') {
-                counter++;
-            }
-        }
-        return counter;
-    }
-
-    //method to change the text of the Elapsed Time label.
     void change() {
         if (millis == 1000) {
             secs++;
@@ -422,31 +355,20 @@ public class TutorialController implements Initializable {
         txtEmail.setVisible(false);
     }
 
-    void getPositiveWords(String pozitivni) {
-        lblPoz.setText(pozitivni);
-        lblPoz.setVisible(false);
-    }
-
-    void getNegativeWords(String pozitivni) {
-        lblNeg.setText(pozitivni);
-        lblNeg.setVisible(false);
-    }
-
     @FXML
     void switchSceneToResultPage(ActionEvent event) {
 
         try {
-            FXMLLoader loader = new FXMLLoader((getClass().getResource("/fxml/LessonResult.fxml")));
+            FXMLLoader loader = new FXMLLoader((getClass().getResource("/fxml/EndScreen.fxml")));
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            LessonResultController controller = loader.getController();
+            EndScreenController controller = loader.getController();
             int currentLessonChoice = lessonChoiceBox.getSelectionModel().getSelectedIndex();
             String email = controller.GetUser(txtEmail.getText());
             String n = controller.GetN(lblN.getText());
             String pozitvni = controller.getPositiveWords(lblPoz.getText());
             String negativni = controller.getNegativeWords(lblNeg.getText());
-            controller.initializeMyData(totalChar, errorCountWithBackspace, errorCountWithoutBackspace,
-                    timeToComplete, wordCount, currentLessonChoice, email, n, pozitvni, negativni);
+            controller.initializeMyData(totalChar,timeToComplete, wordCount, currentLessonChoice, email, n, pozitvni, negativni);
             Stage theStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             theStage.setScene(scene);
             theStage.show();
@@ -456,7 +378,6 @@ public class TutorialController implements Initializable {
 
     }
 
-    //loads the same or next lesson.
     void initializeLessonChoiceAndBegin(int choice) {
         if (choice <= 6 && 0 <= choice) {
             lessonChoiceBox.getSelectionModel().select(choice);
@@ -471,7 +392,6 @@ public class TutorialController implements Initializable {
             String lesson = lessonChoiceBox.getSelectionModel().getSelectedItem();
             lblN.setText(lesson);
             lblN.setVisible(false);
-            System.out.println("sdasda " + lesson);
 
         });
 
@@ -617,7 +537,6 @@ public class TutorialController implements Initializable {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.setAutoReverse(false);
 
-        //Action to be performed by timer button on firing.
         timerButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -670,19 +589,17 @@ public class TutorialController implements Initializable {
             lessonChoice(preferences.getLanguage(), preferences.getProgrammingLanguage());
         }
         goButton.setDisable(true);
-        //Initializes the choice box with lesson options.
 
         cbDiff.setItems(Difficulty);
         lessonChoiceBox.getSelectionModel().select("Choose lesson");
         cbDiff.getSelectionModel().select("Choose difficulty");
         getLessonName();
-        //Initially Elapsed time is set to 0.
         setTimer();
         lblN.setVisible(false);
         lblPoz.setVisible(false);
         lblNeg.setVisible(false);
 
-    }//Initialize method ends.
+    }
 
     private void loadLang(String lang) {
         locale = new Locale(lang);
@@ -694,4 +611,4 @@ public class TutorialController implements Initializable {
 
 
     }
-}//Controller class ends.
+}

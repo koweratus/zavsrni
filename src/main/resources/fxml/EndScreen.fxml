@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" styleClass="LPbackground" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LessonResultController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" styleClass="LPbackground" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EndScreenController">
     <top>
         <AnchorPane prefHeight="118.0" prefWidth="800.0" BorderPane.alignment="CENTER">
             <children>
@@ -29,16 +29,10 @@
                     </cursor>
                 </Label>
                 <ImageView fitHeight="48.0" fitWidth="52.0" layoutX="323.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-<!--
-                        <Image url="@../Images/appLogo.png" />
--->
-                    </image>
                     <cursor>
                         <Cursor fx:constant="DEFAULT" />
                     </cursor>
                 </ImageView>
-                  <Label fx:id="filterField" layoutX="858.0" layoutY="76.0" prefHeight="16.0" prefWidth="7.0" />
             </children>
         </AnchorPane>
     </top>
@@ -85,17 +79,7 @@
                         <Font name="Arial" size="50.0" />
                     </font>
                 </Label>
-               <!-- <Label fx:id="resultBody" layoutX="60.0" layoutY="131.0" prefHeight="62.0" prefWidth="266.0" text="You completed the lesson. Here are your results. We recommend a true accuracy of at least 95%." wrapText="true">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>-->
                 <ImageView fitHeight="216.0" fitWidth="428.0" layoutX="414.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-<!--
-                        <Image url="@../Images/KeyboardVector.png" />
--->
-                    </image>
                 </ImageView>
                 <TableView fx:id="tvHistory" layoutX="7.0" layoutY="11.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="252.0" prefWidth="900.0" stylesheets="@../styles/dark-theme.css" AnchorPane.bottomAnchor="211.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
@@ -116,11 +100,6 @@
                     </children>
                 </HBox>
                 <ImageView fitHeight="89.0" fitWidth="117.0" layoutX="731.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-<!--
-                        <Image url="@../Images/icons8-verified-account-filled-100.png" />
--->
-                    </image>
                 </ImageView>
                 <HBox layoutX="58.0" layoutY="278.0" prefHeight="114.0" prefWidth="784.0" spacing="25.0" style="-fx-border-color: #ddd; -fx-border-radius: 7;">
                     <children>
@@ -203,21 +182,6 @@
                     </children>
                 </HBox>
                 <HBox layoutX="59.0" layoutY="404.0" prefHeight="34.0" prefWidth="782.0" style="-fx-border-color: #ddd; -fx-border-radius: 7;">
-              <!--      <children>
-                       &lt;!&ndash; <Label prefHeight="34.0" prefWidth="192.0" text="Your Accuracy with backspace is : ">
-                            <opaqueInsets>
-                                <Insets />
-                            </opaqueInsets>
-                            <HBox.margin>
-                                <Insets left="10.0" />
-                            </HBox.margin>
-                        </Label>&ndash;&gt;
-                       &lt;!&ndash; <Label fx:id="accuracy" prefHeight="31.0" prefWidth="57.0" text="98.99%">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </Label>&ndash;&gt;
-                    </children>-->
                 </HBox>
             <Label fx:id="txtEmail" layoutX="517.0" layoutY="104.0" />
             <Label fx:id="lblN" layoutX="517.0" layoutY="104.0" />

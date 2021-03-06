@@ -1,1 +1,1 @@
-{"Language":"English (UK)","VideoResolution":"Windowed","KeyboardLayout":"AZERTY","ProgrammingLanguage":"Java"}
+{"Language":"English (UK)","VideoResolution":"Windowed","KeyboardLayout":"QWERTZ","ProgrammingLanguage":"C++"}

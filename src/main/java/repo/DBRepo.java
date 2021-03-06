@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
 import model.History;
 import model.Users;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.sql.DataSource;
 import java.io.*;
@@ -89,7 +90,7 @@ public class DBRepo implements IRepo {
     public boolean checkUsers(String email, String password) {
         List<Users> users = getAllUsers();
         for (Users user : users) {
-            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+            if (user.getEmail().equals(email) && BCrypt.checkpw(password,user.getPassword())) {
                 return true;
             }
         }

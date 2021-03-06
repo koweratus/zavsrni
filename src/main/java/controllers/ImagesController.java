@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -22,6 +23,8 @@ public class ImagesController implements Initializable {
 
     @FXML
     private JFXButton btnBack;
+    @FXML
+    private Label lbEmail;
     private ResourceBundle bundle;
     private Locale locale;
     private final String croatia = "Croatian";
@@ -39,21 +42,40 @@ public class ImagesController implements Initializable {
         }
         if (preferences.getLanguage().equals(englishUK)) {
             loadLang("en");
-        }     if (preferences.getLanguage().equals(russian)) {
+        }
+        if (preferences.getLanguage().equals(russian)) {
             loadLang("ru");
-        }     if (preferences.getLanguage().equals(serbian)) {
+        }
+        if (preferences.getLanguage().equals(serbian)) {
             loadLang("sr");
-        } if (preferences.getLanguage().equals(englishUS)) {
+        }
+        if (preferences.getLanguage().equals(englishUS)) {
             loadLang("en");
         }
 
     }
-    public void handleButtonAction(ActionEvent event){
-        if (event.getSource()==btnBack){
+
+    public void handleButtonAction(ActionEvent event) {
+        if (event.getSource() == btnBack && lbEmail.getText().isEmpty()) {
+
+                try {
+                    FXMLLoader loader = new FXMLLoader((getClass().getResource("/fxml/guest.fxml")));
+                    Pane blah = loader.load();
+                    Scene scene = new Scene(blah);
+                    Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    appStage.setScene(scene);
+                    appStage.setFullScreen(false);
+                    appStage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+        }else{
             try {
-                FXMLLoader loader= new FXMLLoader((getClass().getResource("/fxml/sample.fxml")));
+                FXMLLoader loader = new FXMLLoader((getClass().getResource("/fxml/sample.fxml")));
                 Pane blah = loader.load();
                 Controller controller = loader.getController();
+                controller.GetUser(lbEmail.getText());
                 Scene scene = new Scene(blah);
                 Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 appStage.setScene(scene);
@@ -65,10 +87,14 @@ public class ImagesController implements Initializable {
         }
 
     }
+    public String GetUser(String text) {
+        lbEmail.setText(text);
+        return text;
+    }
     private void loadLang(String lang) {
         locale = new Locale(lang);
         bundle = ResourceBundle.getBundle("/lang/lang", locale);
-        btnBack.setText(bundle.getString("btnCancel"));
+        btnBack.setText(bundle.getString("btnBack"));
 
 
     }

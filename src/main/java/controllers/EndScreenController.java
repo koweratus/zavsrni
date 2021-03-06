@@ -1,9 +1,4 @@
 package controllers;
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import com.jfoenix.controls.JFXButton;
 
@@ -34,7 +29,7 @@ import utils.Preferences;
 import utils.Utils;
 
 
-public class LessonResultController implements Initializable {
+public class EndScreenController implements Initializable {
 
     @FXML
     public TableColumn colAcc;
@@ -48,9 +43,7 @@ public class LessonResultController implements Initializable {
     public Label filterField;
     @FXML
     public Label lblNaslov;
-    /**
-     * Initializes the controller class.
-     */
+
     @FXML
     private JFXButton goBackButton;
 
@@ -148,23 +141,23 @@ public class LessonResultController implements Initializable {
         if (txtEmail.getText().isEmpty()) {
             try {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/fxml/Tutorial.fxml"));
+                loader.setLocation(getClass().getResource("/fxml/Start.fxml"));
                 Parent root = loader.load();
                 Scene scene = new Scene(root);
                 Stage theStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 theStage.setScene(scene);
                 theStage.show();
 
-                TutorialController controller = loader.getController();
+                StartController controller = loader.getController();
                 controller.initializeLessonChoiceAndBegin(++currentLessonChoice);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }else{
             try {
-                FXMLLoader loader = new FXMLLoader((getClass().getResource("/fxml/Tutorial.fxml")));
+                FXMLLoader loader = new FXMLLoader((getClass().getResource("/fxml/Start.fxml")));
                 Pane blah = loader.load();
-                TutorialController controller = (TutorialController) loader.getController();
+                StartController controller = (StartController) loader.getController();
                 controller.GetUser(txtEmail.getText());
                 Scene scene = new Scene(blah);
                 Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -184,23 +177,23 @@ public class LessonResultController implements Initializable {
         if (txtEmail.getText().isEmpty()) {
             try {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/fxml/Tutorial.fxml"));
+                loader.setLocation(getClass().getResource("/fxml/Start.fxml"));
                 Parent root = loader.load();
                 Scene scene = new Scene(root);
                 Stage theStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 theStage.setScene(scene);
                 theStage.show();
 
-                TutorialController controller = loader.getController();
+                StartController controller = loader.getController();
                 controller.initializeLessonChoiceAndBegin(++currentLessonChoice);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }else{
             try {
-                FXMLLoader loader = new FXMLLoader((getClass().getResource("/fxml/Tutorial.fxml")));
+                FXMLLoader loader = new FXMLLoader((getClass().getResource("/fxml/Start.fxml")));
                 Pane blah = loader.load();
-                TutorialController controller = (TutorialController) loader.getController();
+                StartController controller = (StartController) loader.getController();
                 controller.GetUser(txtEmail.getText());
                 Scene scene = new Scene(blah);
                 Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -216,8 +209,7 @@ public class LessonResultController implements Initializable {
     }
 
 
-    void initializeMyData(int totalChar, int errorCountWithBackspace, int errorCountWithoutBackspace,
-                          String timeToComplete, int wordCount,
+    void initializeMyData(int totalChar, String timeToComplete, int wordCount,
                           int currentLessonChoice, String email, String lesson, String pozitivni, String negativni) {
         try {
             Preferences preferences = Preferences.getPreferences();
@@ -235,11 +227,9 @@ public class LessonResultController implements Initializable {
             }
 
             Double timeInMin = (Double.parseDouble(timeToComplete.substring(0, 2)) + (Double.parseDouble(timeToComplete.substring(3, 5)) / 60.0));
-            double tacc = (double) (103 - (errorCountWithoutBackspace * 100) / totalChar);
             double wpm;
             double acc;
             int words=totalChar/5;
-            // double acc = (double) (103 - (errorCountWithBackspace * 100) / totalChar);
 
             if (pozitivni.equals("")) {
                 acc = 0;
@@ -255,7 +245,6 @@ public class LessonResultController implements Initializable {
             }
 
 
-            //  speedWPM.setText(String.format("%.0f", ((wordCount / 5) / timeInMin)));
             if (negativni.equals("")) {
                 wpm = (double) ((words) / timeInMin) - 0;
                 acc=100;
@@ -270,7 +259,6 @@ public class LessonResultController implements Initializable {
 
             }
             trueAccuracy.setText(String.format("%.1f", acc));
-            // accuracy.setText(String.format("%.1f", acc) + "%");
             timeSpent.setText(timeToComplete);
             speedWPM.setText(String.format("%.0f", wpm));
 
@@ -280,8 +268,6 @@ public class LessonResultController implements Initializable {
             String pLang = preferences.getProgrammingLanguage().toString();
             String date = Utils.getTodaysDate();
 
-
-            //  String lesson = controller.getLessonName();
 
             if (!email.isEmpty()) {
                 Users c = utils.Utils.getCustomerFromEmail(email);
@@ -301,25 +287,14 @@ public class LessonResultController implements Initializable {
 
                 FilteredList<History> filteredData = new FilteredList<>(histories, p -> true);
 
-                // 2. Set the filter Predicate whenever the filter changes.
-
-
                 filteredData.setPredicate(person -> {
 
-                    // If filter text is empty, display all persons.
-
-
-                    // Does not match.
                     return person.getTypeOfTest().contains(lesson); // Filter matches first name.
                 });
 
 
                 SortedList<History> sortedData = new SortedList<>(filteredData);
-
-                // 4. Bind the SortedList comparator to the TableView comparator.
                 sortedData.comparatorProperty().bind(tvHistory.comparatorProperty());
-
-                // 5. Add sorted (and filtered) data to the table.
                 tvHistory.setItems(sortedData);
 
                 repo.insertHistory(h);

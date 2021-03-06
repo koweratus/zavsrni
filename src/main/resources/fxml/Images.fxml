@@ -8,8 +8,10 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <AnchorPane prefHeight="561.0" prefWidth="799.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ImagesController">
    <children>
+      <Label fx:id="lbEmail" layoutX="117.0" layoutY="183.0" text="Label" />
       <BorderPane layoutX="-141.0" layoutY="-147.0" prefHeight="181.0" prefWidth="135.0" />
       <ImageView fx:id="imgv" fitHeight="258.0" fitWidth="443.0" layoutX="20.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
          <image>

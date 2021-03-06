@@ -21,14 +21,16 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Users;
+import org.apache.commons.codec.digest.DigestUtils;
 import repo.IRepo;
 import repo.RepoFactory;
 import utils.DataValidation;
 import utils.Preferences;
-
+import org.mindrot.jbcrypt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -147,16 +149,17 @@ public class RegisterController implements Initializable {
 
         System.out.println("Action Button Method Passed");
         boolean emailB = DataValidation.validateEmaill(txtEmail, emailLabel);
+        System.out.println(emailB);
         boolean pw = DataValidation.validatePassword(txtPassword, passLabel);
         boolean fn = DataValidation.validateName(txtFirstName, fnLabel);
         boolean ln = DataValidation.validateName(txtLastName, lnLabel);
         String email = txtEmail.getText();
-        String pass = txtPassword.getText();
+        String pass = hashPassword(txtPassword.getText());
         String firstname = txtFirstName.getText();
         String lastname = txtLastName.getText();
         IRepo repo = RepoFactory.getRepo();
-
-        if (!(repo.checkEmail(email)) && !email.isEmpty()) {
+        System.out.println(pass);
+        if (!(repo.checkEmail(email))&& !email.isEmpty() && pw && fn && emailB && ln) {
             Users u = new Users(firstname, lastname,
                     email, pass);
             repo.insertUsers(u);
@@ -165,6 +168,9 @@ public class RegisterController implements Initializable {
 
     }
 
+    private String hashPassword(String plainTextPassword){
+        return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
+    }
 
     private void loadLang(String lang) {
         locale = new Locale(lang);
